@@ -1,5 +1,6 @@
 package cmsc123.mp03.game;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import cmsc123.mp03.ui.UtilityFrame;
@@ -15,6 +16,7 @@ public class GameFrame {
 
     private UtilityFrame frame;
     private JPanel menuPanel;
+    private JButton startGameButton;
     
     /**
      * Initializes this UI container.
@@ -30,6 +32,10 @@ public class GameFrame {
      */
     private void initMenuPanel() {
         menuPanel = new JPanel();
+        
+        startGameButton = new JButton("Start Game");
+        
+        menuPanel.add(startGameButton);
     }
     
     /**
