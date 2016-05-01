@@ -15,7 +15,7 @@ import cmsc123.mp03.ui.UtilityFrame;
 public class GameFrame {
 
     private UtilityFrame frame;
-    private JPanel menuPanel;
+    private JPanel menuPanel, gamePanel;
     private JButton startGameButton;
     
     /**
@@ -25,6 +25,7 @@ public class GameFrame {
         frame = new UtilityFrame();
         
         initMenuPanel();
+        initGamePanel();
     }
     
     /**
@@ -36,6 +37,10 @@ public class GameFrame {
         startGameButton = new JButton("Start Game");
         
         menuPanel.add(startGameButton);
+    }
+    
+    private void initGamePanel() {
+        gamePanel = new JPanel();
     }
     
     /**
