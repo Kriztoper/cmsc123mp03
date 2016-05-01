@@ -11,6 +11,7 @@ import javax.swing.WindowConstants;
  * @author John Paul Ada
  *
  */
+@SuppressWarnings("serial")
 public class UtilityFrame extends JFrame {
 
     private static final int DEFAULT_WIDTH  = 640;
