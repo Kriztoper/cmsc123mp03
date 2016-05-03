@@ -21,6 +21,11 @@ public class GamePanel extends JPanel {
         g.drawImage(gameImage, 0, 0, this);
     }
     
+    /**
+     * Sets the image to be drawn in the panel.
+     * 
+     * @param BufferedImage gameImage
+     */
     public void setGameImage(BufferedImage gameImage) {
         this.gameImage = gameImage;
     }

@@ -45,6 +45,9 @@ public class GameFrame {
         menuPanel.add(startGameButton);
     }
     
+    /**
+     * Initializes game panel.
+     */
     private void initGamePanel() {
         gamePanel = new GamePanel();
     }

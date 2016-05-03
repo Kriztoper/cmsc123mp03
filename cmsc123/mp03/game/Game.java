@@ -17,6 +17,9 @@ public class Game implements GameInterface {
         setMenuListeners();
     }
 
+    /**
+     * Sets menu listeners.
+     */
     private void setMenuListeners() {
 
         // Set action for "Start Game" button
@@ -31,7 +34,9 @@ public class Game implements GameInterface {
         });
     }
 
-    
+    /**
+     * Initializes game.
+     */
     private void initializeGame() {
         
         // TODO: Initialize game states and whatnot
