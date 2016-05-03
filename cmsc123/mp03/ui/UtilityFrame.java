@@ -24,6 +24,7 @@ public class UtilityFrame extends JFrame {
      */
     public UtilityFrame() {
         setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
     
@@ -48,6 +49,8 @@ public class UtilityFrame extends JFrame {
 
         currentPanel = panel;
         add(currentPanel);
+
+        this.repaint();
     }
     
 }
