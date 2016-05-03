@@ -3,6 +3,7 @@ package cmsc123.mp03.game;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import cmsc123.mp03.framework.GamePanel;
 import cmsc123.mp03.ui.UtilityFrame;
 
 /**
@@ -14,8 +15,12 @@ import cmsc123.mp03.ui.UtilityFrame;
  */
 public class GameFrame {
 
+    private static int DEFAULT_WIDTH  = 640;
+    private static int DEFAULT_HEIGHT = 640;
+    
     private UtilityFrame frame;
-    private JPanel menuPanel, gamePanel;
+    private JPanel menuPanel;
+    private GamePanel gamePanel;
     private JButton startGameButton;
     
     /**
@@ -33,14 +38,18 @@ public class GameFrame {
      */
     private void initMenuPanel() {
         menuPanel = new JPanel();
+        menuPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         
         startGameButton = new JButton("Start Game");
         
         menuPanel.add(startGameButton);
     }
     
+    /**
+     * Initializes game panel.
+     */
     private void initGamePanel() {
-        gamePanel = new JPanel();
+        gamePanel = new GamePanel();
     }
     
     /**
@@ -50,4 +59,19 @@ public class GameFrame {
         frame.setVisible(true);
     }
     
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
+    
+    public JPanel getMenuPanel() {
+        return menuPanel;
+    }
+    
+    public JButton getStartGameButton() {
+        return startGameButton;
+    }
+    
+    public UtilityFrame getFrame() {
+        return frame;
+    }
 }
