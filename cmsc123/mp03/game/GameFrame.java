@@ -20,8 +20,9 @@ public class GameFrame {
     
     private UtilityFrame frame;
     private JPanel menuPanel;
+    
     private GamePanel gamePanel;
-    private JButton startGameButton;
+    private JButton startGameButton, creditsButton;
     
     /**
      * Initializes this UI container.
@@ -41,8 +42,10 @@ public class GameFrame {
         menuPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         
         startGameButton = new JButton("Start Game");
+        creditsButton   = new JButton("Credits");
         
         menuPanel.add(startGameButton);
+        menuPanel.add(creditsButton);
     }
     
     /**
@@ -70,8 +73,12 @@ public class GameFrame {
     public JButton getStartGameButton() {
         return startGameButton;
     }
-    
-    public UtilityFrame getFrame() {
+
+    public JButton getCreditsButton() {
+		return creditsButton;
+	}
+
+	public UtilityFrame getFrame() {
         return frame;
     }
 }
