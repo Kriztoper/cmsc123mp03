@@ -73,7 +73,12 @@ public class GameFrame {
     public JButton getStartGameButton() {
         return startGameButton;
     }
-
+    
+    /**
+     * Returns the credits button.
+     * 
+     * @return JButton
+     */
     public JButton getCreditsButton() {
 		return creditsButton;
 	}
