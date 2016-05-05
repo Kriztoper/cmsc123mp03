@@ -64,6 +64,8 @@ public class Game implements GameInterface {
         BufferedImage gameImage = new BufferedImage(640, 640, BufferedImage.TYPE_INT_RGB);
         Graphics2D gameGraphics = (Graphics2D) gameImage.getGraphics();
         
+        // TODO: Pass gameGraphics to game entities
+        
         // Set image to be drawn
         frameContainer.getGamePanel().setGameImage(gameImage);
         

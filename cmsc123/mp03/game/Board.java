@@ -16,7 +16,7 @@ public class Board implements ReactorInterface, BroadcasterInterface {
     public Board() {
         listeners = new HashMap<>();
     }
-    
+
     @Override
     public void react(Object event) {
         // TODO Auto-generated method stub
