@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 import cmsc123.mp03.framework.GameInterface;
+import cmsc123.mp03.framework.ListenerInterface;
 
 public class Game implements GameInterface {
 
     private GameFrame frameContainer;
+    private Board board;
     
     public Game(GameFrame frameContainer) {
         this.frameContainer = frameContainer;
@@ -38,8 +40,16 @@ public class Game implements GameInterface {
      * Initializes game.
      */
     private void initializeGame() {
+        board = new Board();
         
-        // TODO: Initialize game states and whatnot
+        board.addListener("end", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+                frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+            }
+        });
+        
         drawBoard();
     }
     
