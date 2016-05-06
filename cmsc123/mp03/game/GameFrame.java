@@ -1,6 +1,15 @@
 package cmsc123.mp03.game;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cmsc123.mp03.framework.GamePanel;
@@ -39,10 +48,23 @@ public class GameFrame {
      */
     private void initMenuPanel() {
         menuPanel = new JPanel();
+        menuPanel.setLayout(null);
         menuPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        
+        // Set background image for menu panel
+        try {
+            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("assets/images/menu-bg.png"))));
+            bg.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+            menuPanel.add(bg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
         startGameButton = new JButton("Start Game");
         creditsButton   = new JButton("Credits");
+        
+        startGameButton.setBounds(250, 400, 150, 30);
+        creditsButton.setBounds(250, 450, 150, 30);
         
         menuPanel.add(startGameButton);
         menuPanel.add(creditsButton);
