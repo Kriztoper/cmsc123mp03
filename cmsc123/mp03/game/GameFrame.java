@@ -13,9 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cmsc123.mp03.framework.GamePanel;
-//import cmsc123.mp03.ui.CreditsButton;
 import cmsc123.mp03.ui.ImageButton;
-import cmsc123.mp03.ui.StartGameButton;
 import cmsc123.mp03.ui.UtilityFrame;
 
 /**
@@ -34,9 +32,8 @@ public class GameFrame {
     private JPanel menuPanel;
     
     private GamePanel gamePanel;
-//    private CreditsButton creditsButton;
-    private StartGameButton startGameButton;
-    
+    private ImageButton creditsButton, startGameButton;
+
     /**
      * Initializes this UI container.
      */
@@ -64,9 +61,10 @@ public class GameFrame {
             e.printStackTrace();
         }
         
+        // set start game and credits button
 		try {
-			startGameButton = new StartGameButton();
-//			creditsButton   = new CreditsButton();
+			startGameButton = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/start-normal.png"))));
+			creditsButton   = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/credits-normal.png"))));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,15 +102,6 @@ public class GameFrame {
     public JButton getStartGameButton() {
         return startGameButton;
     }
-    
-//    /**
-//     * Returns the credits button.
-//     * 
-//     * @return JButton
-//     */
-//    public JButton getCreditsButton() {
-//		return creditsButton;
-//	}
 
 	public UtilityFrame getFrame() {
         return frame;
