@@ -11,10 +11,25 @@ import cmsc123.mp03.framework.ds.LinkList;
 
 public class Board implements ReactorInterface, BroadcasterInterface {
 
+	private static final int X = 7;
+	private static final int Y = 6;
+	
     private HashMap<String, LinkList<ListenerInterface>> listeners;
+    private int[][] boardArray;
     
     public Board() {
         listeners = new HashMap<>();
+        
+        int[][] boardArrayTemp = {
+        		{0, 0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0, 0}
+        };
+        
+        boardArray = boardArrayTemp;
     }
 
     @Override
