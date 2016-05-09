@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cmsc123.mp03.framework.GamePanel;
+import cmsc123.mp03.ui.CreditsButton;
 import cmsc123.mp03.ui.ImageButton;
 import cmsc123.mp03.ui.StartGameButton;
 import cmsc123.mp03.ui.UtilityFrame;
@@ -33,7 +34,7 @@ public class GameFrame {
     private JPanel menuPanel;
     
     private GamePanel gamePanel;
-    private JButton creditsButton;
+    private CreditsButton creditsButton;
     private StartGameButton startGameButton;
     
     /**
@@ -65,11 +66,11 @@ public class GameFrame {
         
 		try {
 			startGameButton = new StartGameButton();
+			creditsButton   = new CreditsButton();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        creditsButton   = new JButton("Credits");
         
         startGameButton.setBounds(250, 400, 150, 30);
         creditsButton.setBounds(250, 450, 150, 30);
