@@ -18,6 +18,8 @@ public class Game implements GameInterface {
     public Game(GameFrame frameContainer) {
         this.frameContainer = frameContainer;
         gameImage = new BufferedImage(640, 640, BufferedImage.TYPE_INT_RGB);
+        
+        
         setMenuListeners();
     }
 
@@ -38,6 +40,8 @@ public class Game implements GameInterface {
         });
     }
 
+    
+    
     /**
      * Initializes game.
      */
@@ -49,6 +53,14 @@ public class Game implements GameInterface {
             @Override
             public void obey(Object event) {
                 frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+            }
+        });
+        
+        board.addListener("update", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+                drawBoard();
             }
         });
         
@@ -64,7 +76,7 @@ public class Game implements GameInterface {
         Graphics2D gameGraphics = (Graphics2D) gameImage.getGraphics();
         gameGraphics.clearRect(0, 0, 640, 640);
         
-        // TODO: Pass gameGraphics to game entities
+        // Let the board draw itself
         board.draw(gameGraphics);
         
         // Set image to be drawn

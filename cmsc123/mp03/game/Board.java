@@ -1,5 +1,6 @@
 package cmsc123.mp03.game;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 
@@ -17,6 +18,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 	private static final int Y = 6;
 	
     private HashMap<String, LinkList<ListenerInterface>> listeners;
+    private int width, height;
     private int[][] boardArray;
     
     public Board() {
@@ -32,6 +34,9 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         };
         
         boardArray = boardArrayTemp;
+        
+        width  = 640;
+        height = 640;
     }
 
     @Override
@@ -71,7 +76,21 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 
 	@Override
 	public void draw(Graphics2D graphics) {
+		int radius = width / boardArray.length;
 		
+		// Draw Background
+		graphics.setColor(Color.WHITE);
+		graphics.fillRect(0, 0, width, height);
+		
+		// Draw Circles
+		graphics.setColor(Color.BLACK);
+		for (int i = 0; i < boardArray.length; i++) {
+			for (int j = 0; j < boardArray[0].length; j++) {
+				if (boardArray[i][j] == 0) {
+					graphics.drawOval(i * radius, j * radius, radius, radius);
+				}
+			}
+		}
 	}
 
 }
