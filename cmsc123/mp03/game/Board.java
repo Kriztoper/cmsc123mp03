@@ -1,15 +1,17 @@
 package cmsc123.mp03.game;
 
+import java.awt.Graphics2D;
 import java.util.HashMap;
 
 import cmsc123.mp03.framework.BroadcasterInterface;
+import cmsc123.mp03.framework.DrawableInterface;
 import cmsc123.mp03.framework.Event;
 import cmsc123.mp03.framework.ListenerInterface;
 import cmsc123.mp03.framework.ReactorInterface;
 import cmsc123.mp03.framework.ds.Link;
 import cmsc123.mp03.framework.ds.LinkList;
 
-public class Board implements ReactorInterface, BroadcasterInterface {
+public class Board implements ReactorInterface, BroadcasterInterface, DrawableInterface {
 
 	private static final int X = 7;
 	private static final int Y = 6;
@@ -66,5 +68,10 @@ public class Board implements ReactorInterface, BroadcasterInterface {
             list.setFirst(link);
         }
     }
+
+	@Override
+	public void draw(Graphics2D graphics) {
+		
+	}
 
 }

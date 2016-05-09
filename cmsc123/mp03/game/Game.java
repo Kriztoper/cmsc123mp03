@@ -13,9 +13,11 @@ public class Game implements GameInterface {
     private GameFrame frameContainer;
     private Board board;
     
+    private BufferedImage gameImage;
+    
     public Game(GameFrame frameContainer) {
         this.frameContainer = frameContainer;
-        
+        gameImage = new BufferedImage(640, 640, BufferedImage.TYPE_INT_RGB);
         setMenuListeners();
     }
 
@@ -59,12 +61,11 @@ public class Game implements GameInterface {
      * @param Graphics2D graphics Graphics2D object of the game panel
      */
     private void drawBoard() {
-
-        // TODO: Add actual board drawing
-        BufferedImage gameImage = new BufferedImage(640, 640, BufferedImage.TYPE_INT_RGB);
         Graphics2D gameGraphics = (Graphics2D) gameImage.getGraphics();
+        gameGraphics.clearRect(0, 0, 640, 640);
         
         // TODO: Pass gameGraphics to game entities
+        board.draw(gameGraphics);
         
         // Set image to be drawn
         frameContainer.getGamePanel().setGameImage(gameImage);
