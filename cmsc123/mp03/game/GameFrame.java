@@ -56,13 +56,13 @@ public class GameFrame {
         menuPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         
         // Set background image for menu panel
-//        try {
-//            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("assets/images/menu-bg.png"))));
-//            bg.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-//            menuPanel.add(bg);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("assets/images/menu-bg.png"))));
+            bg.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+            menuPanel.add(bg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
 		try {
 			startGameButton = new StartGameButton();
