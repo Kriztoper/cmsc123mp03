@@ -28,12 +28,13 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         listeners = new HashMap<>();
         
         int[][] boardArrayTemp = {
-        		{0, 0, 0, 0, 0, 0, 0},
-        		{0, 0, 0, 0, 0, 0, 0},
-        		{0, 0, 0, 0, 0, 0, 0},
-        		{0, 0, 0, 0, 0, 0, 0},
-        		{0, 0, 0, 0, 0, 0, 0},
-        		{0, 0, 0, 0, 0, 0, 0}
+        		{0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0},
+        		{0, 0, 0, 0, 0, 0}
         };
         
         int[] insertRowTemp = {5, 5, 5, 5, 5, 5, 5};
