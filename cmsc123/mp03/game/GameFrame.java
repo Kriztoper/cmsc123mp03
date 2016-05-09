@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cmsc123.mp03.framework.GamePanel;
-import cmsc123.mp03.ui.CreditsButton;
+//import cmsc123.mp03.ui.CreditsButton;
 import cmsc123.mp03.ui.ImageButton;
 import cmsc123.mp03.ui.StartGameButton;
 import cmsc123.mp03.ui.UtilityFrame;
@@ -34,7 +34,7 @@ public class GameFrame {
     private JPanel menuPanel;
     
     private GamePanel gamePanel;
-    private CreditsButton creditsButton;
+//    private CreditsButton creditsButton;
     private StartGameButton startGameButton;
     
     /**
@@ -56,27 +56,27 @@ public class GameFrame {
         menuPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         
         // Set background image for menu panel
-        try {
-            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("assets/images/menu-bg.png"))));
-            bg.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            menuPanel.add(bg);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("assets/images/menu-bg.png"))));
+//            bg.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+//            menuPanel.add(bg);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         
 		try {
 			startGameButton = new StartGameButton();
-			creditsButton   = new CreditsButton();
+//			creditsButton   = new CreditsButton();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
         startGameButton.setBounds(250, 400, 150, 30);
-        creditsButton.setBounds(250, 450, 150, 30);
+//        creditsButton.setBounds(250, 450, 150, 30);
         
         menuPanel.add(startGameButton);
-        menuPanel.add(creditsButton);
+//        menuPanel.add(creditsButton);
     }
     
     /**
@@ -105,14 +105,14 @@ public class GameFrame {
         return startGameButton;
     }
     
-    /**
-     * Returns the credits button.
-     * 
-     * @return JButton
-     */
-    public JButton getCreditsButton() {
-		return creditsButton;
-	}
+//    /**
+//     * Returns the credits button.
+//     * 
+//     * @return JButton
+//     */
+//    public JButton getCreditsButton() {
+//		return creditsButton;
+//	}
 
 	public UtilityFrame getFrame() {
         return frame;
