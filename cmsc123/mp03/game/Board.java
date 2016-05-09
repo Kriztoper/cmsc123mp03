@@ -2,6 +2,7 @@ package cmsc123.mp03.game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
@@ -21,6 +22,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
     private HashMap<String, LinkList<ListenerInterface>> listeners;
     private int width, height;
     private int[][] boardArray;
+    private int[] insertRow;
     
     public Board() {
         listeners = new HashMap<>();
@@ -34,7 +36,10 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         		{0, 0, 0, 0, 0, 0, 0}
         };
         
+        int[] insertRowTemp = {5, 5, 5, 5, 5, 5, 5};
+        
         boardArray = boardArrayTemp;
+        insertRow  = insertRowTemp;
         
         width  = 640;
         height = 640;
@@ -43,9 +48,18 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
     @Override
     public void react(Object event) {
         if (event instanceof MouseEvent) {
-        	event = (MouseEvent) event;
+        	int radius = width / boardArray.length;
         	
+        	Point location = ((MouseEvent) event).getPoint();
         	
+        	int column = (int) (location.getX()/radius);
+        	
+        	if (insertRow[column] < 0) {
+        		// TODO: Insert warning or something
+        	} else {
+        		boardArray[column][insertRow[column]] = 1;
+        		insertRow[column] = insertRow[column] - 1;
+        	}
         }
         
         // Check if winning condition
@@ -69,11 +83,11 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         
         if (list != null) {
             Link<ListenerInterface> link = list.getFirst();
-            link.getValue().obey(new Event());
+            link.getValue().obey(new Event()); // TODO: Replace with a BoardEvent
             
             while (link.hasNext()) {
                 link = link.getNext();
-                link.getValue().obey(new Event());
+                link.getValue().obey(new Event()); // TODO: Replace with a BoardEvent
             }
         }
     }
@@ -102,11 +116,17 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 		graphics.fillRect(0, 0, width, height);
 		
 		// Draw Circles
-		graphics.setColor(Color.BLACK);
 		for (int i = 0; i < boardArray.length; i++) {
 			for (int j = 0; j < boardArray[0].length; j++) {
 				if (boardArray[i][j] == 0) {
+					graphics.setColor(Color.BLACK);
 					graphics.drawOval(i * radius, j * radius, radius, radius);
+				} else if (boardArray[i][j] == 1) {
+					graphics.setColor(Color.RED);
+					graphics.fillOval(i * radius, j * radius, radius, radius);
+				} else if (boardArray[i][j] == 2) {
+					graphics.setColor(Color.BLUE);
+					graphics.fillOval(i * radius, j * radius, radius, radius);
 				}
 			}
 		}
