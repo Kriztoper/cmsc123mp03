@@ -69,6 +69,7 @@ public class Game implements GameInterface {
             @Override
             public void obey(Object event) {
                 frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+                // TODO: Some sort of congratulations here for the player.
             }
         });
         
