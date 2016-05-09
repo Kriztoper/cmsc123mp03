@@ -16,14 +16,13 @@ import cmsc123.mp03.framework.ds.Link;
 import cmsc123.mp03.framework.ds.LinkList;
 
 public class Board implements ReactorInterface, BroadcasterInterface, DrawableInterface {
-
-	private static final int X = 7;
-	private static final int Y = 6;
 	
     private HashMap<String, LinkList<ListenerInterface>> listeners;
     private int width, height;
     private int[][] boardArray;
     private int[] insertRow;
+    
+    private PlayerInterface player1, player2, currentPlayer;
     
     public Board() {
         listeners = new HashMap<>();
@@ -44,24 +43,30 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         
         width  = 640;
         height = 640;
+        
+        // TODO: Assign depending on game mode
+        player1 = new Player(PlayerInterface.PLAYER_1);
+        player2 = new Player(PlayerInterface.PLAYER_2);
+        
+        currentPlayer = player1;
     }
 
     @Override
     public void react(Object event) {
         if (event instanceof MouseEvent) {
-        	int radius = width / boardArray.length;
-        	
-        	Point location = ((MouseEvent) event).getPoint();
-        	
-        	int column = (int) (location.getX()/radius);
-        	
-        	if (insertRow[column] < 0) {
-        		// TODO: Insert warning or something
-        	} else {
-        		boardArray[column][insertRow[column]] = 1;
-        		insertRow[column] = insertRow[column] - 1;
-        	}
+            if (currentPlayer instanceof Player) {
+                ((Player) currentPlayer).setEvent((MouseEvent)event);
+                ((Player) currentPlayer).setInserts(insertRow);
+                
+                boardArray = currentPlayer.move(boardArray);
+                
+                insertRow  = ((Player) currentPlayer).getInserts();
+            } else if (currentPlayer instanceof CPUPlayer) {
+                boardArray = currentPlayer.move(boardArray);
+            }
         }
+        
+        currentPlayer = currentPlayer == player1 ? player2 : player1;
         
         // Check if winning condition
         if (isGameOver()) {
@@ -74,7 +79,14 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         
     }
 
+    /**
+     * Checks if the game is over.
+     * 
+     * @return boolean
+     */
     public boolean isGameOver() {
+        // TODO: Check winnng conditions here
+        
     	return false;
     }
     
@@ -124,10 +136,10 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 				if (boardArray[i][j] == 0) {
 					graphics.setColor(Color.BLACK);
 					graphics.drawOval(i * radius, j * radius, radius, radius);
-				} else if (boardArray[i][j] == 1) {
+				} else if (boardArray[i][j] == PlayerInterface.PLAYER_1) {
 					graphics.setColor(Color.RED);
 					graphics.fillOval(i * radius, j * radius, radius, radius);
-				} else if (boardArray[i][j] == 2) {
+				} else if (boardArray[i][j] == PlayerInterface.PLAYER_2) {
 					graphics.setColor(Color.BLUE);
 					graphics.fillOval(i * radius, j * radius, radius, radius);
 				}

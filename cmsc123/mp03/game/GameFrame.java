@@ -71,10 +71,10 @@ public class GameFrame {
 		}
         
         startGameButton.setBounds(250, 400, 150, 30);
-//        creditsButton.setBounds(250, 450, 150, 30);
+        creditsButton.setBounds(250, 450, 150, 30);
         
         menuPanel.add(startGameButton);
-//        menuPanel.add(creditsButton);
+        menuPanel.add(creditsButton);
     }
     
     /**
