@@ -3,6 +3,7 @@ package cmsc123.mp03.game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
@@ -110,6 +111,8 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 	@Override
 	public void draw(Graphics2D graphics) {
 		int radius = width / boardArray.length;
+		
+		graphics.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		
 		// Draw Background
 		graphics.setColor(Color.WHITE);
