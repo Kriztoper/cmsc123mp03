@@ -7,6 +7,13 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * This is an image button that
+ * starts the game when clicked.
+ * 
+ * @author Kriztoper Urmeneta
+ *
+ */
 public class StartGameButton extends ImageButton {
 	
 	public StartGameButton() throws IOException {
