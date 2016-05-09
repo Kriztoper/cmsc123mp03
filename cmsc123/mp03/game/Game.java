@@ -3,6 +3,11 @@ package cmsc123.mp03.game;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 import cmsc123.mp03.framework.GameInterface;
@@ -19,8 +24,8 @@ public class Game implements GameInterface {
         this.frameContainer = frameContainer;
         gameImage = new BufferedImage(640, 640, BufferedImage.TYPE_INT_RGB);
         
-        
         setMenuListeners();
+        setGameListeners();
     }
 
     /**
@@ -40,7 +45,20 @@ public class Game implements GameInterface {
         });
     }
 
-    
+    /**
+     * Sets game listeners.
+     */
+    private void setGameListeners() {
+    	frameContainer.getGamePanel().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				board.react(e);
+			}
+    		
+		});
+    }
     
     /**
      * Initializes game.

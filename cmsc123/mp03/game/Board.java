@@ -2,6 +2,7 @@ package cmsc123.mp03.game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 import cmsc123.mp03.framework.BroadcasterInterface;
@@ -41,9 +42,27 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 
     @Override
     public void react(Object event) {
-        // TODO Auto-generated method stub
+        if (event instanceof MouseEvent) {
+        	event = (MouseEvent) event;
+        	
+        	
+        }
+        
+        // Check if winning condition
+        if (isGameOver()) {
+        	broadcast("end");
+        	
+        	// TODO: Cleanup Resources or create destroy method
+        } else {
+        	broadcast("update");
+        }
+        
     }
 
+    public boolean isGameOver() {
+    	return false;
+    }
+    
     @Override
     public void broadcast(String eventName) {
         LinkList<ListenerInterface> list = listeners.get(eventName);
