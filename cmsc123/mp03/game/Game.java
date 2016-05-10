@@ -3,6 +3,8 @@ package cmsc123.mp03.game;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import cmsc123.mp03.framework.GameInterface;
@@ -13,10 +15,14 @@ public class Game implements GameInterface {
     private GameFrame frameContainer;
     private Board board;
     
+    private BufferedImage gameImage;
+    
     public Game(GameFrame frameContainer) {
         this.frameContainer = frameContainer;
+        gameImage = new BufferedImage(640, 640, BufferedImage.TYPE_INT_RGB);
         
         setMenuListeners();
+        setGameListeners();
     }
 
     /**
@@ -37,6 +43,21 @@ public class Game implements GameInterface {
     }
 
     /**
+     * Sets game listeners.
+     */
+    private void setGameListeners() {
+    	frameContainer.getGamePanel().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				board.react(e);
+			}
+    		
+		});
+    }
+    
+    /**
      * Initializes game.
      */
     private void initializeGame() {
@@ -47,6 +68,15 @@ public class Game implements GameInterface {
             @Override
             public void obey(Object event) {
                 frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+                // TODO: Some sort of congratulations here for the player.
+            }
+        });
+        
+        board.addListener("update", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+                drawBoard();
             }
         });
         
@@ -59,12 +89,11 @@ public class Game implements GameInterface {
      * @param Graphics2D graphics Graphics2D object of the game panel
      */
     private void drawBoard() {
-
-        // TODO: Add actual board drawing
-        BufferedImage gameImage = new BufferedImage(640, 640, BufferedImage.TYPE_INT_RGB);
         Graphics2D gameGraphics = (Graphics2D) gameImage.getGraphics();
+        gameGraphics.clearRect(0, 0, 640, 640);
         
-        // TODO: Pass gameGraphics to game entities
+        // Let the board draw itself
+        board.draw(gameGraphics);
         
         // Set image to be drawn
         frameContainer.getGamePanel().setGameImage(gameImage);

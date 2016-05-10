@@ -1,9 +1,6 @@
 package cmsc123.mp03.game;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -33,7 +30,7 @@ public class GameFrame {
     
     private GamePanel gamePanel;
     private ImageButton creditsButton, startGameButton;
-    
+
     /**
      * Initializes this UI container.
      */
@@ -102,15 +99,6 @@ public class GameFrame {
     public JButton getStartGameButton() {
         return startGameButton;
     }
-    
-    /**
-     * Returns the credits button.
-     * 
-     * @return JButton
-     */
-    public JButton getCreditsButton() {
-		return creditsButton;
-	}
 
 	public UtilityFrame getFrame() {
         return frame;
