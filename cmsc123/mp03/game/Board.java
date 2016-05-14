@@ -86,7 +86,33 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
      */
     public boolean isGameOver() {
         // TODO: Check winnng conditions here
-        
+    	int i,j,k,count;
+
+    	//horizontal
+        for(i = 0;i < boardArray.length; i++)
+            for(j = 0; j < boardArray[0].length - 3; j++)
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[i][j+1] && boardArray[i][j] == boardArray[i][j+2] && boardArray[i][j] == boardArray[i][j+3])
+                    return true;
+
+        //vertical
+        for(i = 0; i < boardArray.length - 3; i++)
+            for(j = 0;j < boardArray[0].length; j++)
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[i+1][j] && boardArray[i][j]==boardArray[i+2][j] && boardArray[i][j] == boardArray[i+3][j])
+                	return true;
+
+        //right diagonal
+        for(i = 0;i < boardArray.length - 3; i++)
+            for(j = 0;j < boardArray[0].length - 3; j++) {
+            	if (boardArray[i][j] != 0 && boardArray[i][j] == boardArray[i+1][j+1] && boardArray[i][j] == boardArray[i+2][j+2] && boardArray[i][j] == boardArray[i+3][j+3])
+                	return true;
+            }
+
+        //left diagonal
+        for(i = 0; i < boardArray.length - 3; i++)
+            for(j = 3;j < boardArray[0].length; j++)
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[i+1][j-1] && boardArray[i][j] == boardArray[i+2][j-2] && boardArray[i][j] == boardArray[i+3][j-3])
+                    return true;
+    	
     	return false;
     }
     
