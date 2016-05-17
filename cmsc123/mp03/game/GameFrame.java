@@ -29,7 +29,7 @@ public class GameFrame {
     private JPanel menuPanel;
     
     private GamePanel gamePanel;
-    private ImageButton creditsButton, startGameButton;
+    private ImageButton creditsButton, startGameButton, howToPlayButton;
 
     /**
      * Initializes this UI container.
@@ -62,6 +62,7 @@ public class GameFrame {
 		try {
 			startGameButton = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/start-normal.png"))));
 			creditsButton   = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/credits-normal.png"))));
+			howToPlayButton = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/how-to-play-normal.png"))));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -69,9 +70,11 @@ public class GameFrame {
         
         startGameButton.setBounds(250, 400, 150, 30);
         creditsButton.setBounds(250, 450, 150, 30);
+        howToPlayButton.setBounds(250, 500, 150, 30);
         
         menuPanel.add(startGameButton);
         menuPanel.add(creditsButton);
+        menuPanel.add(howToPlayButton);
     }
     
     /**
@@ -98,6 +101,10 @@ public class GameFrame {
     
     public JButton getStartGameButton() {
         return startGameButton;
+    }
+    
+    public JButton getHowToPlayButton() {
+    	 return howToPlayButton;
     }
 
 	public UtilityFrame getFrame() {
