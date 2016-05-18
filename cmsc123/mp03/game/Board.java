@@ -15,11 +15,20 @@ import cmsc123.mp03.framework.ds.Link;
 import cmsc123.mp03.framework.ds.LinkList;
 
 public class Board implements ReactorInterface, BroadcasterInterface, DrawableInterface {
-	
+
+    public static final int MODE_PVP = 1;
+    public static final int MODE_CVP = 2;
+    public static final int MODE_CVC = 3;
+    
+    private static final int STATE_AWAITING_MOVE = 1;
+    private static final int STATE_MAKING_MOVE   = 2; 
+    
     private HashMap<String, LinkList<ListenerInterface>> listeners;
     private int width, height;
     private int[][] boardArray;
     private int[] insertRow;
+    
+    private int state;
     
     private PlayerInterface player1, player2, currentPlayer;
     
@@ -49,34 +58,111 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         player2 = new Player(PlayerInterface.PLAYER_2);
         
         currentPlayer = player1;
+        state = STATE_AWAITING_MOVE;
+        
+        initPlayers();
     }
 
+    private void initPlayers() {
+        if (player1 instanceof CPUPlayer) {
+            ((BroadcasterInterface)player2).addListener("move", new ListenerInterface() {
+                
+                @Override
+                public void obey(Object event) {
+                    state = STATE_MAKING_MOVE;
+                    boardArray = player1.move(boardArray);
+                    
+                    // Check if winning condition
+                    if (isGameOver()) {
+                        broadcast("end");
+                        
+                        // TODO: Cleanup Resources or create destroy method
+                    } else {
+                        broadcast("update");
+                        ((BroadcasterInterface)player1).broadcast("move");
+                        currentPlayer = player2;
+                        state = STATE_AWAITING_MOVE;
+                    }
+                }
+            });
+        } else {
+            ((BroadcasterInterface)player2).addListener("move", new ListenerInterface() {
+                
+                @Override
+                public void obey(Object event) {
+                    if (isGameOver()) {
+                        broadcast("end");
+                        
+                        // TODO: Cleanup Resources or create destroy method
+                    } else {
+                        broadcast("update");
+                        
+                        currentPlayer = player1;
+                        state = STATE_AWAITING_MOVE;
+                    }
+                }
+            });
+        }
+        
+        if (player2 instanceof CPUPlayer) {
+            ((BroadcasterInterface)player1).addListener("move", new ListenerInterface() {
+                
+                @Override
+                public void obey(Object event) {
+                    state = STATE_MAKING_MOVE;
+                    boardArray = player2.move(boardArray);
+                    
+                    
+                    if (isGameOver()) {
+                        broadcast("end");
+                        
+                        // TODO: Cleanup Resources or create destroy method
+                    } else {
+                        broadcast("update");
+                        
+                        ((BroadcasterInterface)player2).broadcast("move");
+                        currentPlayer = player1;
+                        state = STATE_AWAITING_MOVE;
+                    }
+                }
+            });
+        } else {
+            ((BroadcasterInterface)player1).addListener("move", new ListenerInterface() {
+                
+                @Override
+                public void obey(Object event) {
+                    if (isGameOver()) {
+                        broadcast("end");
+                        
+                        // TODO: Cleanup Resources or create destroy method
+                    } else {
+                        broadcast("update");
+                        
+                        currentPlayer = player2;
+                        state = STATE_AWAITING_MOVE;
+                    }
+                }
+            });
+        }
+    }
+    
     @Override
     public void react(Object event) {
         if (event instanceof MouseEvent) {
-            if (currentPlayer instanceof Player) {
+            if (state == STATE_AWAITING_MOVE && currentPlayer instanceof Player) {
+                state = STATE_MAKING_MOVE;
+                
                 ((Player) currentPlayer).setEvent((MouseEvent)event);
                 ((Player) currentPlayer).setInserts(insertRow);
                 
                 boardArray = currentPlayer.move(boardArray);
                 
                 insertRow  = ((Player) currentPlayer).getInserts();
-            } else if (currentPlayer instanceof CPUPlayer) {
-                boardArray = currentPlayer.move(boardArray);
             }
         }
         
-        currentPlayer = currentPlayer == player1 ? player2 : player1;
-        
-        // Check if winning condition
-        if (isGameOver()) {
-        	broadcast("end");
-        	
-        	// TODO: Cleanup Resources or create destroy method
-        } else {
-        	broadcast("update");
-        }
-        
+        state = STATE_AWAITING_MOVE;
+        ((BroadcasterInterface)currentPlayer).broadcast("move");
     }
 
     /**
