@@ -27,6 +27,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
     private int width, height;
     private int[][] boardArray;
     private int[] insertRow;
+    private int[] lastMove;
     
     private int state;
     
@@ -72,6 +73,8 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     state = STATE_MAKING_MOVE;
                     boardArray = player1.move(boardArray);
                     
+                    lastMove = ((Player) currentPlayer).getLastMove();
+                    
                     // Check if winning condition
                     if (isGameOver()) {
                         broadcast("end");
@@ -112,6 +115,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     state = STATE_MAKING_MOVE;
                     boardArray = player2.move(boardArray);
                     
+                    lastMove = ((Player) currentPlayer).getLastMove();
                     
                     if (isGameOver()) {
                         broadcast("end");
@@ -157,6 +161,8 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 
                 boardArray = currentPlayer.move(boardArray);
                 
+                lastMove = ((Player) currentPlayer).getLastMove();
+                
                 insertRow  = ((Player) currentPlayer).getInserts();
             }
         }
@@ -172,6 +178,110 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
      */
     public boolean isGameOver() {
         // TODO: Check winnng conditions here
+        int i, j, k, count;
+        
+        i = lastMove[0]; // max is 7
+        j = lastMove[1]; // max is 6
+
+        System.out.println("checking ["+i+"]["+j+"]");
+        // print the board
+        for (int x = 0; x < 6; x++) {
+            for (int y = 0; y < 7; y++) {
+                System.out.print(boardArray[y][x]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+
+        // horizontal
+        for (int x = 0; x <= 3; x++) {
+            if (x <= i && x + 3 >= i) {
+                if(boardArray[x][j] != 0 && boardArray[i][j] == boardArray[x][j] && boardArray[i][j] == boardArray[x+1][j] && boardArray[i][j] == boardArray[x+2][j] && boardArray[i][j] == boardArray[x+3][j]) {
+                    return true;
+                }
+            }
+        }
+        
+        // vertical
+        for (int x = 0; x <= 2; x++) {
+            if (x <= j && x + 3 >= j) {
+                if(boardArray[i][x] != 0 && boardArray[i][j] == boardArray[i][x] && boardArray[i][j] == boardArray[i][x+1] && boardArray[i][j] == boardArray[i][x+2] && boardArray[i][j] == boardArray[i][x+3]) {
+                    return true;
+                }
+            }
+        }
+        
+        // diagonal (topLeft to bottomRight)
+        int indexGap = i - j;
+        if (indexGap == -2) {
+            if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[0][2] && boardArray[i][j] == boardArray[1][3] && boardArray[i][j] == boardArray[2][4] && boardArray[i][j] == boardArray[3][5]) {
+                return true;
+            }
+        } else if (indexGap == -1) {
+            for (int x = 1; x <= 2; x++) {
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x-1][x] && boardArray[i][j] == boardArray[x][x+1] && boardArray[i][j] == boardArray[x+1][x+2] && boardArray[i][j] == boardArray[x+2][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 0) {
+            for (int x = 0; x <= 2; x++) {
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x][x] && boardArray[i][j] == boardArray[x+1][x+1] && boardArray[i][j] == boardArray[x+2][x+2] && boardArray[i][j] == boardArray[x+3][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 1) {
+            for (int x = 0; x <= 2; x++) {
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x+1][x] && boardArray[i][j] == boardArray[x+2][x+1] && boardArray[i][j] == boardArray[x+3][x+2] && boardArray[i][j] == boardArray[x+4][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 2) {
+            for (int x = 0; x <= 1; x++) {
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x+2][x] && boardArray[i][j] == boardArray[x+3][x+1] && boardArray[i][j] == boardArray[x+4][x+2] && boardArray[i][j] == boardArray[x+5][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 3) {
+            if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[3][0] && boardArray[i][j] == boardArray[4][1] && boardArray[i][j] == boardArray[5][2] && boardArray[i][j] == boardArray[6][3]) {
+                return true;
+            }
+        }
+        
+        // diagonal (topRight to bottomLeft)
+        indexGap = i + j;
+        if (indexGap == 3) {
+            if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[3][0] && boardArray[i][j] == boardArray[2][1] && boardArray[i][j] == boardArray[1][2] && boardArray[i][j] == boardArray[0][3]) {
+                return true;
+            }
+        } else if (indexGap == 4) {
+            for (int x = 0; x <= 1; x++) {
+                if(boardArray[4-x][x] != 0 && boardArray[i][j] == boardArray[4-(x)][x] && boardArray[i][j] == boardArray[4-(x+1)][x+1] && boardArray[i][j] == boardArray[4-(x+2)][x+2] && boardArray[i][j] == boardArray[4-(x+3)][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 5) {
+            for (int x = 0; x <= 2; x++) {
+                if(boardArray[5-x][x] != 0 && boardArray[i][j] == boardArray[5-(x)][x] && boardArray[i][j] == boardArray[5-(x+1)][x+1] && boardArray[i][j] == boardArray[5-(x+2)][x+2] && boardArray[i][j] == boardArray[5-(x+3)][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 6) {
+            for (int x = 0; x <= 2; x++) {
+                if(boardArray[6-x][x] != 0 && boardArray[i][j] == boardArray[6-(x)][x] && boardArray[i][j] == boardArray[6-(x+1)][x+1] && boardArray[i][j] == boardArray[6-(x+2)][x+2] && boardArray[i][j] == boardArray[6-(x+3)][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 7) {
+            for (int x = 1; x <= 2; x++) {
+                if(boardArray[7-x][x] != 0 && boardArray[i][j] == boardArray[7-(x)][x] && boardArray[i][j] == boardArray[7-(x+1)][x+1] && boardArray[i][j] == boardArray[7-(x+2)][x+2] && boardArray[i][j] == boardArray[7-(x+3)][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 8) {
+            if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[6][2] && boardArray[i][j] == boardArray[5][3] && boardArray[i][j] == boardArray[4][4] && boardArray[i][j] == boardArray[3][5]) {
+                return true;
+            }
+        }
         
     	return false;
     }
