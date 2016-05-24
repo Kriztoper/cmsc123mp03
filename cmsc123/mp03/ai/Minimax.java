@@ -31,13 +31,6 @@ public class Minimax {
             }
         }
         
-        for (int i = 0; i < bestNode.getValue().getBoard().length; i++) {
-            for (int j = 0; j < bestNode.getValue().getBoard()[0].length; j++) {
-                System.out.print(" " + bestNode.getValue().getBoard()[i][j]);
-            }
-            System.out.println();
-        }
-        
         return bestNode.getValue();
     }
     
