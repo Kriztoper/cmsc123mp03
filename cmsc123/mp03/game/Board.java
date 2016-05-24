@@ -56,7 +56,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         
         // TODO: Assign depending on game mode
         player1 = new Player(PlayerInterface.PLAYER_1);
-        player2 = new Player(PlayerInterface.PLAYER_2);
+        player2 = new CPUPlayer(PlayerInterface.PLAYER_2);
         
         currentPlayer = player1;
         state = STATE_AWAITING_MOVE;
@@ -73,7 +73,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     state = STATE_MAKING_MOVE;
                     boardArray = player1.move(boardArray);
                     
-                    lastMove = ((Player) currentPlayer).getLastMove();
+                    lastMove = ((CPUPlayer) player1).getLastMove();
                     
                     // Check if winning condition
                     if (isGameOver()) {
@@ -93,6 +93,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 
                 @Override
                 public void obey(Object event) {
+
                     if (isGameOver()) {
                         broadcast("end");
                         
@@ -115,7 +116,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     state = STATE_MAKING_MOVE;
                     boardArray = player2.move(boardArray);
                     
-                    lastMove = ((Player) currentPlayer).getLastMove();
+                    lastMove = ((CPUPlayer) player2).getLastMove();
                     
                     if (isGameOver()) {
                         broadcast("end");
@@ -135,6 +136,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 
                 @Override
                 public void obey(Object event) {
+                    
                     if (isGameOver()) {
                         broadcast("end");
                         
