@@ -1,8 +1,11 @@
 package cmsc123.mp03.game;
 
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.RenderingHints;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
@@ -159,10 +162,17 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 
                 insertRow  = ((Player) currentPlayer).getInserts();
             }
+            
         }
         
         state = STATE_AWAITING_MOVE;
         ((BroadcasterInterface)currentPlayer).broadcast("move");
+        
+        if (event instanceof ComponentEvent) {
+            
+        	height = ((ComponentEvent) event).getComponent().getHeight();
+        	width = ((ComponentEvent) event).getComponent().getWidth();
+        }
     }
 
     /**
@@ -213,7 +223,9 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 		graphics.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
 		
 		// Draw Background
-		graphics.setColor(Color.WHITE);
+		
+		graphics.setPaint((Paint) new GradientPaint(10,0,Color.blue,1000, 10,Color.WHITE,true));
+		//graphics.setColor(Color.blue);
 		graphics.fillRect(0, 0, width, height);
 		
 		// Draw Circles
@@ -223,14 +235,60 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 					graphics.setColor(Color.BLACK);
 					graphics.drawOval(i * radius, j * radius, radius, radius);
 				} else if (boardArray[i][j] == PlayerInterface.PLAYER_1) {
-					graphics.setColor(Color.RED);
+					graphics.setColor(Color.decode("#f9cf00"));
 					graphics.fillOval(i * radius, j * radius, radius, radius);
+					graphics.setColor(Color.decode("#a18700"));
+					graphics.fillOval((i * radius)+(int)(radius*.16), (j * radius)+(int)(radius*.16), 
+							(int) (radius-radius*0.3), (int) (radius-radius*0.3));
+					graphics.setColor(Color.decode("#ffd919"));
+					graphics.fillOval((i * radius)+(int)(radius*.16), (j * radius)+(int)(radius*.16), 
+							(int) (radius-radius*0.3), (int) (radius-radius*0.3));
+					graphics.setColor(Color.decode("#a18700"));
+					graphics.fillOval((i * radius)+(int)(radius*.16), (j * radius)+(int)(radius*.16), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.75), (j * radius)+(int)(radius*.16), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.75), (j * radius)+(int)(radius*.75), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.16), (j * radius)+(int)(radius*.75), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.46), (j * radius)+(int)(radius*.88), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.46), (j * radius)+(int)(radius*.05), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.05), (j * radius)+(int)(radius*.46), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.87), (j * radius)+(int)(radius*.46), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					
 				} else if (boardArray[i][j] == PlayerInterface.PLAYER_2) {
-					graphics.setColor(Color.BLUE);
+					graphics.setColor(Color.decode("#dd000a"));
 					graphics.fillOval(i * radius, j * radius, radius, radius);
+					graphics.setColor(Color.decode("#7b0005"));
+					graphics.fillOval((i * radius)+(int)(radius*.16), (j * radius)+(int)(radius*.16), 
+							(int) (radius-radius*0.3), (int) (radius-radius*0.3));
+					graphics.setColor(Color.decode("#ff000b"));
+					graphics.fillOval((i * radius)+(int)(radius*.16), (j * radius)+(int)(radius*.16), 
+							(int) (radius-radius*0.3), (int) (radius-radius*0.3));
+					graphics.setColor(Color.decode("#7b0005"));
+					graphics.fillOval((i * radius)+(int)(radius*.16), (j * radius)+(int)(radius*.16), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.75), (j * radius)+(int)(radius*.16), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.75), (j * radius)+(int)(radius*.75), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.16), (j * radius)+(int)(radius*.75), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.46), (j * radius)+(int)(radius*.88), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.46), (j * radius)+(int)(radius*.05), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.05), (j * radius)+(int)(radius*.46), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
+					graphics.fillOval((i * radius)+(int)(radius*.87), (j * radius)+(int)(radius*.46), 
+							(int) (radius-radius*0.9), (int) (radius-radius*0.9));
 				}
 			}
 		}
 	}
-
 }

@@ -3,6 +3,8 @@ package cmsc123.mp03.game;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -19,10 +21,11 @@ public class Game implements GameInterface {
     
     public Game(GameFrame frameContainer) {
         this.frameContainer = frameContainer;
-        gameImage = new BufferedImage(640, 640, BufferedImage.TYPE_INT_RGB);
+        gameImage = new BufferedImage(2000, 2000, BufferedImage.TYPE_INT_RGB);
         
         setMenuListeners();
         setGameListeners();
+        setResizeListeners();
     }
 
     /**
@@ -58,6 +61,22 @@ public class Game implements GameInterface {
     }
     
     /**
+     * Sets resize listeners.
+     */
+    private void setResizeListeners() {
+    	frameContainer.getGamePanel().addComponentListener(new ComponentAdapter() {
+    		
+    		@Override
+	        public void componentResized(ComponentEvent e) {
+	            
+    			super.componentResized(e);
+    			
+    			board.react(e);
+	        }
+    	});
+    }
+    
+    /**
      * Initializes game.
      */
     private void initializeGame() {
@@ -79,6 +98,14 @@ public class Game implements GameInterface {
                 drawBoard();
             }
         });
+       
+        board.addListener("resize", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+                drawBoard();
+            }
+        });
         
         drawBoard();
     }
@@ -90,7 +117,7 @@ public class Game implements GameInterface {
      */
     private void drawBoard() {
         Graphics2D gameGraphics = (Graphics2D) gameImage.getGraphics();
-        gameGraphics.clearRect(0, 0, 640, 640);
+        gameGraphics.clearRect(0, 0, 5000, 5000);
         
         // Let the board draw itself
         board.draw(gameGraphics);
