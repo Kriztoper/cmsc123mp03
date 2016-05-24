@@ -40,11 +40,28 @@ public class Game implements GameInterface {
                 initializeGame();
             }
         });
+        
+        // Set action for "How To Play" button
+        frameContainer.getHowToPlayButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        
+                // Show How To Play Panel
+                frameContainer.getFrame().setCurrentPanel(frameContainer.getHowToPlayPanel());
+            }
+        });
+        
+        // Set action for "Back to Main" button
+        frameContainer.getBackToMainButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        
+                // Show How To Play Panel
+                frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+            }
+        });
     }
-
-    /**
-     * Sets game listeners.
-     */
+    
     private void setGameListeners() {
     	frameContainer.getGamePanel().addMouseListener(new MouseAdapter() {
 
