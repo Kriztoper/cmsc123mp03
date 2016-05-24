@@ -183,16 +183,6 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         i = lastMove[0]; // max is 7
         j = lastMove[1]; // max is 6
 
-        System.out.println("checking ["+i+"]["+j+"]");
-        // print the board
-        for (int x = 0; x < 6; x++) {
-            for (int y = 0; y < 7; y++) {
-                System.out.print(boardArray[y][x]+" ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-
         // horizontal
         for (int x = 0; x <= 3; x++) {
             if (x <= i && x + 3 >= i) {
