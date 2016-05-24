@@ -11,11 +11,13 @@ import cmsc123.mp03.framework.ds.LinkList;
 public class CPUPlayer implements PlayerInterface, BroadcasterInterface {
 
     private HashMap<String, LinkList<ListenerInterface>> listeners;
+    private int[] lastMove;
     
     private int type;
     
     public CPUPlayer(int type) {
         listeners = new HashMap<>();
+        lastMove = new int[2];
         
         this.type = type;
     }
@@ -29,6 +31,9 @@ public class CPUPlayer implements PlayerInterface, BroadcasterInterface {
             for (int j = board[i].length - 1; j >= 0; j--) {
                 if (board[i][j] == 0) {
                     board[i][j] = type;
+
+                    lastMove[0] = i;
+                    lastMove[1] = j;
                     
                     return board;
                 }
@@ -66,6 +71,10 @@ public class CPUPlayer implements PlayerInterface, BroadcasterInterface {
             link.setNext(list.getFirst());
             list.setFirst(link);
         }
+    }
+
+    public int[] getLastMove() {
+        return lastMove;
     }
     
 }
