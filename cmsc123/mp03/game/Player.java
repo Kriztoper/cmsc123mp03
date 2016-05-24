@@ -8,9 +8,11 @@ public class Player implements PlayerInterface {
     private MouseEvent event;
     private int[] inserts;
     private int type;
+    private int[] lastMove;
     
     public Player(int type) {
         this.type = type;
+        lastMove = new int[2];
     }
     
     @Override
@@ -24,11 +26,21 @@ public class Player implements PlayerInterface {
         if (inserts[column] < 0) {
             // TODO: Insert warning or something
         } else {
+            lastMove[0] = column; // column
+            lastMove[1] = inserts[column]; // row
             board[column][inserts[column]] = type;
             inserts[column] = inserts[column] - 1;
         }
         
         return board;
+    }
+    
+    /**
+     * Returns the indices of the current move
+     * @return int[]
+     */
+    public int[] getLastMove() {
+        return lastMove;
     }
     
     public void setEvent(MouseEvent event) {

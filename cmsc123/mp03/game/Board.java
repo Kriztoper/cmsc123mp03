@@ -20,6 +20,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
     private int width, height;
     private int[][] boardArray;
     private int[] insertRow;
+    private int[] lastMove;
     
     private PlayerInterface player1, player2, currentPlayer;
     
@@ -66,6 +67,8 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
             }
         }
         
+        lastMove = ((Player) currentPlayer).getLastMove();
+        
         currentPlayer = currentPlayer == player1 ? player2 : player1;
         
         // Check if winning condition
@@ -85,35 +88,113 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
      * @return boolean
      */
     public boolean isGameOver() {
-        // TODO: Check winnng conditions here
-    	int i,j,k,count;
+        // TODO: Check winning conditions here
+        int i, j, k, count;
+        
+        i = lastMove[0]; // max is 7
+        j = lastMove[1]; // max is 6
 
-    	//horizontal
-        for(i = 0;i < boardArray.length; i++)
-            for(j = 0; j < boardArray[0].length - 3; j++)
-                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[i][j+1] && boardArray[i][j] == boardArray[i][j+2] && boardArray[i][j] == boardArray[i][j+3])
-                    return true;
-
-        //vertical
-        for(i = 0; i < boardArray.length - 3; i++)
-            for(j = 0;j < boardArray[0].length; j++)
-                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[i+1][j] && boardArray[i][j]==boardArray[i+2][j] && boardArray[i][j] == boardArray[i+3][j])
-                	return true;
-
-        //right diagonal
-        for(i = 0;i < boardArray.length - 3; i++)
-            for(j = 0;j < boardArray[0].length - 3; j++) {
-            	if (boardArray[i][j] != 0 && boardArray[i][j] == boardArray[i+1][j+1] && boardArray[i][j] == boardArray[i+2][j+2] && boardArray[i][j] == boardArray[i+3][j+3])
-                	return true;
+        System.out.println("checking ["+i+"]["+j+"]");
+        // print the board
+        for (int x = 0; x < 6; x++) {
+            for (int y = 0; y < 7; y++) {
+                System.out.print(boardArray[y][x]+" ");
             }
+            System.out.println();
+        }
+        System.out.println();
 
-        //left diagonal
-        for(i = 0; i < boardArray.length - 3; i++)
-            for(j = 3;j < boardArray[0].length; j++)
-                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[i+1][j-1] && boardArray[i][j] == boardArray[i+2][j-2] && boardArray[i][j] == boardArray[i+3][j-3])
+        // horizontal
+        for (int x = 0; x <= 3; x++) {
+            if (x <= i && x + 3 >= i) {
+                if(boardArray[x][j] != 0 && boardArray[i][j] == boardArray[x][j] && boardArray[i][j] == boardArray[x+1][j] && boardArray[i][j] == boardArray[x+2][j] && boardArray[i][j] == boardArray[x+3][j]) {
                     return true;
-    	
-    	return false;
+                }
+            }
+        }
+        
+        // vertical
+        for (int x = 0; x <= 2; x++) {
+            if (x <= j && x + 3 >= j) {
+                if(boardArray[i][x] != 0 && boardArray[i][j] == boardArray[i][x] && boardArray[i][j] == boardArray[i][x+1] && boardArray[i][j] == boardArray[i][x+2] && boardArray[i][j] == boardArray[i][x+3]) {
+                    return true;
+                }
+            }
+        }
+        
+        // diagonal (topLeft to bottomRight)
+        int indexGap = i - j;
+        if (indexGap == -2) {
+            if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[0][2] && boardArray[i][j] == boardArray[1][3] && boardArray[i][j] == boardArray[2][4] && boardArray[i][j] == boardArray[3][5]) {
+                return true;
+            }
+        } else if (indexGap == -1) {
+            for (int x = 1; x <= 2; x++) {
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x-1][x] && boardArray[i][j] == boardArray[x][x+1] && boardArray[i][j] == boardArray[x+1][x+2] && boardArray[i][j] == boardArray[x+2][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 0) {
+            for (int x = 0; x <= 2; x++) {
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x][x] && boardArray[i][j] == boardArray[x+1][x+1] && boardArray[i][j] == boardArray[x+2][x+2] && boardArray[i][j] == boardArray[x+3][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 1) {
+            for (int x = 0; x <= 2; x++) {
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x+1][x] && boardArray[i][j] == boardArray[x+2][x+1] && boardArray[i][j] == boardArray[x+3][x+2] && boardArray[i][j] == boardArray[x+4][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 2) {
+            for (int x = 0; x <= 1; x++) {
+                if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x+2][x] && boardArray[i][j] == boardArray[x+3][x+1] && boardArray[i][j] == boardArray[x+4][x+2] && boardArray[i][j] == boardArray[x+5][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 3) {
+            if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[3][0] && boardArray[i][j] == boardArray[4][1] && boardArray[i][j] == boardArray[5][2] && boardArray[i][j] == boardArray[6][3]) {
+                return true;
+            }
+        }
+        
+        // diagonal (topRight to bottomLeft)
+        indexGap = i + j;
+        if (indexGap == 3) {
+            if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[3][0] && boardArray[i][j] == boardArray[2][1] && boardArray[i][j] == boardArray[1][2] && boardArray[i][j] == boardArray[0][3]) {
+                return true;
+            }
+        } else if (indexGap == 4) {
+            for (int x = 0; x <= 1; x++) {
+                if(boardArray[4-x][x] != 0 && boardArray[i][j] == boardArray[4-(x)][x] && boardArray[i][j] == boardArray[4-(x+1)][x+1] && boardArray[i][j] == boardArray[4-(x+2)][x+2] && boardArray[i][j] == boardArray[4-(x+3)][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 5) {
+            for (int x = 0; x <= 2; x++) {
+                if(boardArray[5-x][x] != 0 && boardArray[i][j] == boardArray[5-(x)][x] && boardArray[i][j] == boardArray[5-(x+1)][x+1] && boardArray[i][j] == boardArray[5-(x+2)][x+2] && boardArray[i][j] == boardArray[5-(x+3)][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 6) {
+            for (int x = 0; x <= 2; x++) {
+                if(boardArray[6-x][x] != 0 && boardArray[i][j] == boardArray[6-(x)][x] && boardArray[i][j] == boardArray[6-(x+1)][x+1] && boardArray[i][j] == boardArray[6-(x+2)][x+2] && boardArray[i][j] == boardArray[6-(x+3)][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 7) {
+            for (int x = 1; x <= 2; x++) {
+                if(boardArray[7-x][x] != 0 && boardArray[i][j] == boardArray[7-(x)][x] && boardArray[i][j] == boardArray[7-(x+1)][x+1] && boardArray[i][j] == boardArray[7-(x+2)][x+2] && boardArray[i][j] == boardArray[7-(x+3)][x+3]) {
+                    return true;
+                }
+            }
+        } else if (indexGap == 8) {
+            if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[6][2] && boardArray[i][j] == boardArray[5][3] && boardArray[i][j] == boardArray[4][4] && boardArray[i][j] == boardArray[3][5]) {
+                return true;
+            }
+        }
+
+        return false;
     }
     
     @Override
