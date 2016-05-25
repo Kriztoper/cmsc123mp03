@@ -71,7 +71,11 @@ public class Game implements GameInterface {
 	            
     			super.componentResized(e);
     			
-    			board.react(e);
+    			board.setHeight(e.getComponent().getHeight());
+    			board.setWidth(e.getComponent().getWidth());
+    			((Player) board.getPlayer1()).setRadius(e.getComponent().getWidth());
+    			
+    		    drawBoard();
 	        }
     	});
     }
@@ -81,12 +85,13 @@ public class Game implements GameInterface {
      */
     private void initializeGame() {
         board = new Board();
-        
+        drawBoard(); 
         board.addListener("end", new ListenerInterface() {
             
             @Override
             public void obey(Object event) {
-                frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+            	frameContainer.getFrame().setSize(640,640);
+            	frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
                 // TODO: Some sort of congratulations here for the player.
             }
         });
@@ -117,7 +122,7 @@ public class Game implements GameInterface {
      */
     private void drawBoard() {
         Graphics2D gameGraphics = (Graphics2D) gameImage.getGraphics();
-        gameGraphics.clearRect(0, 0, 5000, 5000);
+        gameGraphics.clearRect(0, 0, 2000, 2000);
         
         // Let the board draw itself
         board.draw(gameGraphics);

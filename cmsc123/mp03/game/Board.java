@@ -5,9 +5,10 @@ import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.RenderingHints;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
+
+import javax.swing.JOptionPane;
 
 import cmsc123.mp03.framework.BroadcasterInterface;
 import cmsc123.mp03.framework.DrawableInterface;
@@ -28,7 +29,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
     
     private HashMap<String, LinkList<ListenerInterface>> listeners;
     private int width, height;
-    private int[][] boardArray;
+	private int[][] boardArray;
     private int[] insertRow;
     private int[] lastMove;
     
@@ -79,7 +80,15 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     lastMove = ((CPUPlayer) player1).getLastMove();
                     
                     // Check if winning condition
-                    if (isGameOver()) {
+                    if (isGameOver()!=0) {
+                    	broadcast("update");
+                    	if(isGameOver() == 1){
+                    		
+                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                    	}else{
+                    		
+                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+                    	}
                         broadcast("end");
                         
                         // TODO: Cleanup Resources or create destroy method
@@ -97,7 +106,15 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 
                 public void obey(Object event) {
 
-                    if (isGameOver()) {
+                    if (isGameOver()!=0) {
+                    	broadcast("update");
+                    	if(isGameOver() == 1){
+                    		
+                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                    	}else{
+                    		
+                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+                    	}
                         broadcast("end");
                         
                         // TODO: Cleanup Resources or create destroy method
@@ -121,7 +138,15 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     
                     lastMove = ((CPUPlayer) player2).getLastMove();
                     
-                    if (isGameOver()) {
+                    if (isGameOver()!=0) {
+                    	broadcast("update");
+                    	if(isGameOver() == 1){
+                    		
+                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                    	}else{
+                    		
+                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+                    	}
                         broadcast("end");
                         
                         // TODO: Cleanup Resources or create destroy method
@@ -141,8 +166,15 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 @Override
                 public void obey(Object event) {
                     
-                    if (isGameOver()) {
-                        broadcast("end");
+                    if (isGameOver()!=0) {
+                    	broadcast("update");
+                    	if(isGameOver() == 1){
+                    		
+                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                    	}else{
+                    		
+                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+                    	}broadcast("end");
                         
                         // TODO: Cleanup Resources or create destroy method
                     } else {
@@ -176,21 +208,38 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         
         state = STATE_AWAITING_MOVE;
         ((BroadcasterInterface)currentPlayer).broadcast("move");
-        
-        if (event instanceof ComponentEvent) {
-            
-        	height = ((ComponentEvent) event).getComponent().getHeight();
-        	width = ((ComponentEvent) event).getComponent().getWidth();
-        }
     }
+    
+    public PlayerInterface getPlayer1(){
+    	
+    	return player1;
+    }
+    
+    public void setHeight(int height){
+    	
+    	this.height = height;
+    }
+    
+    public void setWidth(int width){
+    	
+    	this.width = width;
+    }
+    
+    public int getWidth() {
+		return width;
+	}
 
+	public int getHeight() {
+		return height;
+	}
+    
     /**
      * Checks if the game is over.
      * 
      * @return boolean
      */
-    public boolean isGameOver() {
-        // TODO: Check winnng conditions here
+    public int isGameOver() {
+        // TODO: Check winning conditions here
         int i, j, k, count;
         
         i = lastMove[0]; // max is 7
@@ -200,7 +249,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         for (int x = 0; x <= 3; x++) {
             if (x <= i && x + 3 >= i) {
                 if(boardArray[x][j] != 0 && boardArray[i][j] == boardArray[x][j] && boardArray[i][j] == boardArray[x+1][j] && boardArray[i][j] == boardArray[x+2][j] && boardArray[i][j] == boardArray[x+3][j]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         }
@@ -209,7 +258,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         for (int x = 0; x <= 2; x++) {
             if (x <= j && x + 3 >= j) {
                 if(boardArray[i][x] != 0 && boardArray[i][j] == boardArray[i][x] && boardArray[i][j] == boardArray[i][x+1] && boardArray[i][j] == boardArray[i][x+2] && boardArray[i][j] == boardArray[i][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         }
@@ -218,35 +267,35 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         int indexGap = i - j;
         if (indexGap == -2) {
             if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[0][2] && boardArray[i][j] == boardArray[1][3] && boardArray[i][j] == boardArray[2][4] && boardArray[i][j] == boardArray[3][5]) {
-                return true;
+                return boardArray[i][j];
             }
         } else if (indexGap == -1) {
             for (int x = 1; x <= 2; x++) {
                 if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x-1][x] && boardArray[i][j] == boardArray[x][x+1] && boardArray[i][j] == boardArray[x+1][x+2] && boardArray[i][j] == boardArray[x+2][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         } else if (indexGap == 0) {
             for (int x = 0; x <= 2; x++) {
                 if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x][x] && boardArray[i][j] == boardArray[x+1][x+1] && boardArray[i][j] == boardArray[x+2][x+2] && boardArray[i][j] == boardArray[x+3][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         } else if (indexGap == 1) {
             for (int x = 0; x <= 2; x++) {
                 if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x+1][x] && boardArray[i][j] == boardArray[x+2][x+1] && boardArray[i][j] == boardArray[x+3][x+2] && boardArray[i][j] == boardArray[x+4][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         } else if (indexGap == 2) {
             for (int x = 0; x <= 1; x++) {
                 if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[x+2][x] && boardArray[i][j] == boardArray[x+3][x+1] && boardArray[i][j] == boardArray[x+4][x+2] && boardArray[i][j] == boardArray[x+5][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         } else if (indexGap == 3) {
             if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[3][0] && boardArray[i][j] == boardArray[4][1] && boardArray[i][j] == boardArray[5][2] && boardArray[i][j] == boardArray[6][3]) {
-                return true;
+                return boardArray[i][j];
             }
         }
         
@@ -254,39 +303,39 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         indexGap = i + j;
         if (indexGap == 3) {
             if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[3][0] && boardArray[i][j] == boardArray[2][1] && boardArray[i][j] == boardArray[1][2] && boardArray[i][j] == boardArray[0][3]) {
-                return true;
+                return boardArray[i][j];
             }
         } else if (indexGap == 4) {
             for (int x = 0; x <= 1; x++) {
                 if(boardArray[4-x][x] != 0 && boardArray[i][j] == boardArray[4-(x)][x] && boardArray[i][j] == boardArray[4-(x+1)][x+1] && boardArray[i][j] == boardArray[4-(x+2)][x+2] && boardArray[i][j] == boardArray[4-(x+3)][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         } else if (indexGap == 5) {
             for (int x = 0; x <= 2; x++) {
                 if(boardArray[5-x][x] != 0 && boardArray[i][j] == boardArray[5-(x)][x] && boardArray[i][j] == boardArray[5-(x+1)][x+1] && boardArray[i][j] == boardArray[5-(x+2)][x+2] && boardArray[i][j] == boardArray[5-(x+3)][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         } else if (indexGap == 6) {
             for (int x = 0; x <= 2; x++) {
                 if(boardArray[6-x][x] != 0 && boardArray[i][j] == boardArray[6-(x)][x] && boardArray[i][j] == boardArray[6-(x+1)][x+1] && boardArray[i][j] == boardArray[6-(x+2)][x+2] && boardArray[i][j] == boardArray[6-(x+3)][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         } else if (indexGap == 7) {
             for (int x = 1; x <= 2; x++) {
                 if(boardArray[7-x][x] != 0 && boardArray[i][j] == boardArray[7-(x)][x] && boardArray[i][j] == boardArray[7-(x+1)][x+1] && boardArray[i][j] == boardArray[7-(x+2)][x+2] && boardArray[i][j] == boardArray[7-(x+3)][x+3]) {
-                    return true;
+                    return boardArray[i][j];
                 }
             }
         } else if (indexGap == 8) {
             if(boardArray[i][j] != 0 && boardArray[i][j] == boardArray[6][2] && boardArray[i][j] == boardArray[5][3] && boardArray[i][j] == boardArray[4][4] && boardArray[i][j] == boardArray[3][5]) {
-                return true;
+                return boardArray[i][j];
             }
         }
         
-    	return false;
+    	return 0;
     }
     
     @Override

@@ -77,20 +77,26 @@ public class GameFrame {
         menuPanel.add(howToPlayButton);
     }
     
+    
     /**
      * Initializes game panel.
      */
     private void initGamePanel() {
-        gamePanel = new GamePanel();
+        
+    	gamePanel = new GamePanel();
     }
-    
     /**
      * Shows frame.
      */
     public void show() {
         frame.setVisible(true);
+        frame.getCurrentPanel().setVisible(true);
     }
     
+    public UtilityFrame getUtilFrame(){   	
+    	return frame;
+    }
+ 
     public GamePanel getGamePanel() {
         return gamePanel;
     }
