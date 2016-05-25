@@ -30,13 +30,27 @@ public class Minimax {
                 bestNode = currentChild;
             }
         }
+
+        System.out.println(">>>>>>>> current player is "+bestNode.getValue().getCurrentPlayer());
         
         return bestNode.getValue();
     }
     
     private NodeInterface<BoardNode> getValue(NodeInterface<BoardNode> node, int level, int maxLevel, int mode) {
-        if (level == maxLevel) {
+        
+    	if (level == maxLevel) {
             node.getValue().setValue(evaluator.evaluate(node.getValue()));
+            
+            
+         // print the board with it's heuristic value
+            System.out.println("heuristic value: "+node.getValue().getValue());
+            for (int i = 0; i < 6; i++) {
+            	for (int j = 0; j < 7; j++) {
+            		System.out.print(node.getValue().getBoard()[j][i]+" ");
+            	}
+            	System.out.println();
+            }
+            System.out.println();
             
             return node;
         } else {
