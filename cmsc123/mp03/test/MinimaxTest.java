@@ -23,9 +23,9 @@ public class MinimaxTest {
                 {0, 0, 0, 0, 0, 1},
                 {0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 1, 2, 1},
-                {0, 0, 1, 2, 1, 1},
-                {0, 1, 2, 1, 1, 1}
+                {0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 2, 2},
+                {0, 0, 0, 0, 0, 0}
         };
         BoardNode boardNode = new BoardNode(board);
         boardNode.setCurrentPlayer(1);
@@ -34,10 +34,9 @@ public class MinimaxTest {
 
     @Test
     public void test() {
+    	int bestMove;
         Minimax minimax = new Minimax(new ConnectFourEvaluator(), new ConnectFourChildGenerator());
-        System.out.println("best move "+minimax.getBestMove(node.getValue(), 1).getValue());
-        
-        
+        System.out.println("best move "+(bestMove = minimax.getBestMove(node.getValue(), 2).getValue()));
     }
 
 }

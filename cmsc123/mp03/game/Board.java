@@ -103,9 +103,11 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         } else {
             ((BroadcasterInterface)player2).addListener("move", new ListenerInterface() {
                 
-                
+                @Override
                 public void obey(Object event) {
 
+                	lastMove = ((CPUPlayer) player2).getLastMove();
+                	
                     if (isGameOver()!=0) {
                     	broadcast("update");
                     	if(isGameOver() == 1){
@@ -137,6 +139,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     boardArray = player2.move(boardArray);
                     
                     lastMove = ((CPUPlayer) player2).getLastMove();
+                    ((Player) player1).setSpecificInsert(lastMove[0], lastMove[1]);
                     
                     if (isGameOver()!=0) {
                     	broadcast("update");
@@ -166,6 +169,8 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 @Override
                 public void obey(Object event) {
                     
+                	lastMove = ((Player) player1).getLastMove();
+                	
                     if (isGameOver()!=0) {
                     	broadcast("update");
                     	if(isGameOver() == 1){
@@ -202,6 +207,19 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 lastMove = ((Player) currentPlayer).getLastMove();
                 
                 insertRow  = ((Player) currentPlayer).getInserts();
+                
+                if (isGameOver()!=0) {
+                	broadcast("update");
+                	if(isGameOver() == 1){
+                		
+                		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                	}else{
+                		
+                		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+                	}broadcast("end");
+                    
+                    // TODO: Cleanup Resources or create destroy method
+                }
             }
             
         }

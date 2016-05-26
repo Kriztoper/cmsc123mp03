@@ -76,10 +76,17 @@ public class Player implements PlayerInterface, BroadcasterInterface {
         if (inserts[column] < 0) {
             // TODO: Insert warning or something
         } else {
-            lastMove[0] = column; // column
-            lastMove[1] = inserts[column]; // row
-            board[column][inserts[column]] = type;
-            inserts[column] = inserts[column] - 1;
+        	if (board[column][inserts[column]] == 0) {
+            	lastMove[0] = column; // column
+                lastMove[1] = inserts[column]; // row
+                board[column][inserts[column]] = type;
+                inserts[column] = inserts[column] - 1;
+            } else if (board[column][inserts[column]] != 0 && board[column][inserts[column]] != type && inserts[column] != 0) {
+	        	lastMove[0] = column; // column
+	            lastMove[1] = inserts[column]; // row
+	            board[column][inserts[column]-1] = type;
+	            inserts[column] = inserts[column] - 1;
+            }
         }
         
         return board;
@@ -99,6 +106,11 @@ public class Player implements PlayerInterface, BroadcasterInterface {
     
     public void setInserts(int[] inserts) {
         this.inserts = inserts;
+    }
+    
+    public void setSpecificInsert(int column, int row) {
+        inserts[column] = row;
+        inserts[column] = inserts[column] - 1;
     }
     
     public int[] getInserts() {
