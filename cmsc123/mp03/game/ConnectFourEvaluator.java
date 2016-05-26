@@ -3,7 +3,6 @@ package cmsc123.mp03.game;
 import java.util.Random;
 
 import cmsc123.mp03.ai.EvaluatorInterface;
-import cmsc123.mp03.framework.ds.GraphNode;
 
 public class ConnectFourEvaluator implements EvaluatorInterface {
 
