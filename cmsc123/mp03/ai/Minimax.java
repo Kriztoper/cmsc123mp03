@@ -59,7 +59,7 @@ public class Minimax {
                 }
             }
             
-            node.setValue(value);
+            node.getValue().setValue(value.getValue());
             
             return node;
         }
