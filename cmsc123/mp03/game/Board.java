@@ -103,7 +103,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         } else {
             ((BroadcasterInterface)player2).addListener("move", new ListenerInterface() {
                 
-                
+            	@Override
                 public void obey(Object event) {
 
                     if (isGameOver()!=0) {
