@@ -116,7 +116,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
         	}
         }
         
-        return ((100 * blockFourCounter) + (3 * blockThreeCounter) + (2 * blockTwoCounter));
+        return ((100000 * blockFourCounter) + (3 * blockThreeCounter) + (2 * blockTwoCounter));
     }
         // horizontal
 //        for (int i = 0; i < 6; i++) {
