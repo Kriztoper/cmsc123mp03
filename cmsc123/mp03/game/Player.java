@@ -16,10 +16,13 @@ public class Player implements PlayerInterface, BroadcasterInterface {
     private int[] inserts;
     private int type;
     private int[] lastMove;
+    private int radius;
     
     private HashMap<String, LinkList<ListenerInterface>> listeners;
     
     public Player(int type) {
+    	
+    	radius = 640;
         this.type = type;
         lastMove = new int[2];
         
@@ -56,13 +59,19 @@ public class Player implements PlayerInterface, BroadcasterInterface {
         }
     }
     
+    public void setRadius(int radius){
+    	
+    	this.radius = radius;
+    }
+    
     @Override
     public int[][] move(int[][] board) {
-        int radius = 640 / board.length;
+        
+    	int clickArea = radius / board.length;
         
         Point location = event.getPoint();
         
-        int column = (int) (location.getX()/radius);
+        int column = (int) (location.getX()/clickArea);
         
         if (inserts[column] < 0) {
             // TODO: Insert warning or something

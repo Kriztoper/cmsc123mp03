@@ -30,12 +30,13 @@ public class Minimax {
                 bestNode = currentChild;
             }
         }
-        
+
         return bestNode.getValue();
     }
     
     private NodeInterface<BoardNode> getValue(NodeInterface<BoardNode> node, int level, int maxLevel, int mode) {
-        if (level == maxLevel) {
+        
+    	if (level == maxLevel) {
             node.getValue().setValue(evaluator.evaluate(node.getValue()));
             
             return node;

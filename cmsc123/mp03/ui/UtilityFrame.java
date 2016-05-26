@@ -49,7 +49,6 @@ public class UtilityFrame extends JFrame {
 
         currentPanel = panel;
         add(currentPanel);
-
         this.repaint();
     }
     

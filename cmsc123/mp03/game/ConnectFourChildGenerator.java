@@ -35,6 +35,12 @@ public class ConnectFourChildGenerator implements ChildGeneratorInterface<BoardN
             }            
         }
         
+//        (for (int i = 0; i < children.size(); i++) {
+//        	for () {
+//        		
+//        	}
+//        }
+        
         return (NodeInterface<BoardNode>[]) children.toArray(new Node[children.size()]);
     }
 
