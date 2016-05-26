@@ -24,6 +24,8 @@ public class Minimax {
         
         for (NodeInterface<BoardNode> currentChild : node.getChildren()) {
 
+        	System.out.println("Enter");
+        	
             currentChild = getValue(currentChild, 1, maxTreeDepth, MIN);
             
             if (currentChild.getValue().getValue() > bestNode.getValue().getValue()) {
@@ -36,11 +38,13 @@ public class Minimax {
     
     private NodeInterface<BoardNode> getValue(NodeInterface<BoardNode> node, int level, int maxLevel, int mode) {
         
+    	// Base case
     	if (level == maxLevel) {
             node.getValue().setValue(evaluator.evaluate(node.getValue()));
             
             return node;
         } else {
+        	// Recursive case
             node.setChildren(childGenerator.generateChildren(node));
             
             for (NodeInterface<BoardNode> n : node.getChildren()) {
@@ -58,7 +62,7 @@ public class Minimax {
                 }
             }
             
-            node.setValue(value);
+            node.getValue().setValue(value.getValue());
             
             return node;
         }
