@@ -2,6 +2,7 @@ package cmsc123.mp03.game;
 
 import java.util.HashMap;
 
+import cmsc123.mp03.ai.Minimax;
 import cmsc123.mp03.framework.BroadcasterInterface;
 import cmsc123.mp03.framework.Event;
 import cmsc123.mp03.framework.ListenerInterface;
@@ -27,20 +28,34 @@ public class CPUPlayer implements PlayerInterface, BroadcasterInterface {
         // TODO: Implement Minimax here.
         
         // Sample stupid-ass move selection (not minimax)
-        for (int i = 0; i < board.length; i++) {
-            for (int j = board[i].length - 1; j >= 0; j--) {
-                if (board[i][j] == 0) {
-                    board[i][j] = type;
-
-                    lastMove[0] = i;
-                    lastMove[1] = j;
-                    
-                    return board;
-                }
-            }
-        }
+//        for (int i = 0; i < board.length; i++) {
+//            for (int j = board[i].length - 1; j >= 0; j--) {
+//                if (board[i][j] == 0) {
+//                    board[i][j] = type;
+//
+//                    lastMove[0] = i;
+//                    lastMove[1] = j;
+//                    
+//                    return board;
+//                }
+//            }
+//        }
         
-        return board;
+    	Minimax minimax = new Minimax(new ConnectFourEvaluator(), new ConnectFourChildGenerator());
+    	BoardNode node = new BoardNode(board);
+    	node.setCurrentPlayer(1);
+    	int[][] newBoard = minimax.getBestMove(node, 1).getBoard();
+    	for (int i = 0; i < 6; i++) {
+    		for (int j = 0; j < 7; j++) {
+    			if (board[j][i] != newBoard[j][i]) {
+    				lastMove[0] = j;
+    				lastMove[1] = i;
+    			}
+    		}
+    	}
+    	return newBoard;
+    	
+        //return board;
     }
 
     @Override
