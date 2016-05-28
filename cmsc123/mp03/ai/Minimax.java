@@ -24,8 +24,6 @@ public class Minimax {
         
         for (NodeInterface<BoardNode> currentChild : node.getChildren()) {
 
-        	System.out.println("Enter");
-        	
             currentChild = getValue(currentChild, 1, maxTreeDepth, MIN);
             
             if (currentChild.getValue().getValue() > bestNode.getValue().getValue()) {
@@ -33,14 +31,27 @@ public class Minimax {
             }
         }
 
+        System.out.println("best move "+bestNode.getValue().getValue());
+        
         return bestNode.getValue();
     }
     
     private NodeInterface<BoardNode> getValue(NodeInterface<BoardNode> node, int level, int maxLevel, int mode) {
         
+//    	System.out.println("current level "+level);
+    	
     	// Base case
     	if (level == maxLevel) {
             node.getValue().setValue(evaluator.evaluate(node.getValue()));
+            
+//            System.out.println("eval value "+node.getValue().getValue());
+//            for (int i = 0; i < 6; i++) {
+//            	for (int j = 0; j < 7; j++) {
+//            		System.out.print(node.getValue().getBoard()[j][i]+" ");
+//            	}
+//            	System.out.println();
+//            }
+//            System.out.println();
             
             return node;
         } else {

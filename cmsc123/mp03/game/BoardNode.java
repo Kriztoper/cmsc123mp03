@@ -5,6 +5,7 @@ public class BoardNode {
     private int[][] board;
     private int value;
     private int currentPlayer;
+    private int level;
     
     public BoardNode(int[][] board) {
         this.board = board;
@@ -33,6 +34,14 @@ public class BoardNode {
 
     public void setCurrentPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+	public int getLevel() {
+	    return level;
+    }
+
+	public void setLevel(int level) {
+	    this.level = level;
     }
     
 }
