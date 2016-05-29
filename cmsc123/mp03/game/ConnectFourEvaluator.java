@@ -1,7 +1,5 @@
 package cmsc123.mp03.game;
 
-import java.util.Random;
-
 import cmsc123.mp03.ai.EvaluatorInterface;
 
 public class ConnectFourEvaluator implements EvaluatorInterface {
@@ -13,8 +11,6 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
     @Override
     public int evaluate(Object obj) {
         boardNode = (BoardNode) obj;
-        int[] maxCol = {0, 6}; // max column
-        int[] maxRow = {0, 5}; // max row
         
         int[][] board = boardNode.getBoard();
         
@@ -22,40 +18,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
         int blockThreeCounter = 0;
         int blockTwoCounter = 0;
         
-        int enemyBlockFourCounter = 0;
         int enemyBlockThreeCounter = 0;
-        int enemyBlockTwoCounter = 0;
-        
-//        GraphNode[][] graph = new GraphNode[7][6];
-//        
-//        // convert board array to graph
-//        for (int i = 0; i < 6; i++) {
-//            for (int j = 0; j < 7; j++) {
-//                graph[j][i] = new GraphNode(board[j][i]);
-//            }
-//        }
-//        
-//        // assign adjacent nodes
-//        for (int i = 0; i < 6; i++) {
-//            for (int j = 0; j < 7; j++) {
-//                if (i-1 >= 0 && i-1 <= 5)                         // set north
-//                    graph[j][i].setNorth(graph[j][i+1]);
-//                if (i-1 >= 0 && i-1 <= 5 && j-1 >= 0 && j-1 <= 6) // set northwest
-//                    graph[j][i].setNorth(graph[j-1][i+1]);
-//                if (j-1 >= 0 && j-1 <= 6)                         // set west
-//                    graph[j][i].setNorth(graph[j-1][i+1]);
-//                if (i+1 >= 0 && i+1 <= 5 && j-1 >= 0 && j-1 <= 6) // set southwest
-//                    graph[j][i].setNorth(graph[j-1][i+1]);
-//                if (i+1 >= 0 && i+1 <= 5)                         // set south
-//                    graph[j][i].setNorth(graph[j-1][i+1]);
-//                if (i+1 >= 0 && i+1 <= 5 && j+1 >= 0 && j+1 <= 6) // set southeast
-//                    graph[j][i].setNorth(graph[j-1][i+1]);
-//                if (j+1 >= 0 && j+1 <= 6)                         // set east
-//                    graph[j][i].setNorth(graph[j-1][i+1]);
-//                if (i-1 >= 0 && i-1 <= 5 && j+1 >= 0 && j+1 <= 6) // set northeast
-//                    graph[j][i].setNorth(graph[j-1][i+1]);
-//            }
-//        }
 
         // horizontal
         for (int i = 0; i < 6; i++) {
@@ -69,12 +32,8 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 4) {			// block is 3
-                		enemyBlockFourCounter++;
-                	} else if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {			// block is 3
+                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
                 		enemyBlockThreeCounter++;
-                	} else if (enemyNodeBlockCounter == 2) {			// block is 2
-                		enemyBlockTwoCounter++;
                 	}
                 	nodeBlockCounter = 0;
                 	enemyNodeBlockCounter = 0;
@@ -94,12 +53,8 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 4) {			// block is 3
-                		enemyBlockFourCounter++;
-                	} else if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {			// block is 3
+                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
                 		enemyBlockThreeCounter++;
-                	} else if (enemyNodeBlockCounter == 2) {			// block is 2
-                		enemyBlockTwoCounter++;
                 	}
                 	nodeBlockCounter = 0;
                 	enemyNodeBlockCounter = 0;
@@ -119,12 +74,8 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 4) {			// block is 3
-                		enemyBlockFourCounter++;
-                	} else if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {			// block is 3
+                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
                 		enemyBlockThreeCounter++;
-                	} else if (enemyNodeBlockCounter == 2) {			// block is 2
-                		enemyBlockTwoCounter++;
                 	}
                 	nodeBlockCounter = 0;
                 	enemyNodeBlockCounter = 0;
@@ -144,12 +95,8 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 4) {			// block is 3
-                		enemyBlockFourCounter++;
-                	} else if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {			// block is 3
+                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
                 		enemyBlockThreeCounter++;
-                	} else if (enemyNodeBlockCounter == 2) {			// block is 2
-                		enemyBlockTwoCounter++;
                 	}
                 	nodeBlockCounter = 0;
                 	enemyNodeBlockCounter = 0;
@@ -157,34 +104,11 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
         	}
         }
         
-        return ((100000 * blockFourCounter) + (3 * blockThreeCounter) + (2 * blockTwoCounter) + (1000000 * enemyBlockThreeCounter));
+        return ((100000 * blockFourCounter) + (3 * blockThreeCounter) + (2 * blockTwoCounter))
+        		+ (boardNode.getLevel() == 1 ? (100000 * enemyBlockThreeCounter) : 0 )							// blocking move
+        		+ ((boardNode.getLevel() == 1 && blockFourCounter != 0) ? (100000 * blockFourCounter) : 0 );	// win in 1 move
     }
-        // horizontal
-//        for (int i = 0; i < 6; i++) {
-//            for (int j = 0; j < 7; j++) {
-                
-//                if (boardNode.getBoard()[j][i] == boardNode.getCurrentPlayer()) {
-//                    int counter = 0;
-//                    for(int x = 1; x <= 3; x++) {
-//                        if ((j-x >= 0 && boardNode.getBoard()[j-x][i] == boardNode.getCurrentPlayer())
-//                                || (j+x <= 6 && boardNode.getBoard()[j+x][i] == boardNode.getCurrentPlayer())) {
-//                            counter++;
-//                        } else {
-//                            if (counter == 4)
-//                                blockFourCounter++;
-//                            else if (counter == 3)
-//                                blockThreeCounter++;
-//                            else if (counter == 2)
-//                                blockTwoCounter++;
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//      Random rand = new Random();
-        
-//      return rand.nextInt(100);
-        
+    
     private boolean checkChipValidity(int value) {
     	int enemyPlayer = (boardNode.getCurrentPlayer() == 1 ? 2 : 1 );
     	
