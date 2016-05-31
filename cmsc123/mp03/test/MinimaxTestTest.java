@@ -34,7 +34,7 @@ public class MinimaxTestTest {
 	
 	@Test
 	public void test() {
-		Minimax minimax = new Minimax(new ConnectFourEvaluator(), new ConnectFourChildGenerator());
+		Minimax minimax = new Minimax(new ConnectFourEvaluator(), new ConnectFourChildGenerator(), null);
         minimax.getBestMove(node.getValue(), 5);
 	}
 	
