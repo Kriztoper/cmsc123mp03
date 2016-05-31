@@ -11,10 +11,12 @@ public class Minimax {
 
     private EvaluatorInterface evaluator;
     private ChildGeneratorInterface childGenerator;
+    private PrunerInterface<NodeInterface<BoardNode>> pruner;
     
-    public Minimax(EvaluatorInterface evaluator, ChildGeneratorInterface childGenerator) {
+    public Minimax(EvaluatorInterface evaluator, ChildGeneratorInterface childGenerator, PrunerInterface pruner) {
         this.evaluator = evaluator;
         this.childGenerator = childGenerator;
+        this.pruner = pruner;
     }
     
     public BoardNode getBestMove(BoardNode board, int maxTreeDepth) {
@@ -45,12 +47,12 @@ public class Minimax {
                 bestNode = currentChild;
             }
         }
-
+        
         return bestNode.getValue();
     }
     
     private NodeInterface<BoardNode> getValue(NodeInterface<BoardNode> node, int level, int maxLevel, int mode) {
-        
+
     	node.getValue().setLevel(level);
     	
     	// Base case
@@ -59,8 +61,7 @@ public class Minimax {
             
             return node;
         } else {
-        	// Recursive case
-            node.setChildren(childGenerator.generateChildren(node));
+            node.setChildren(pruner.prune(childGenerator.generateChildren(node)));
             
             for (NodeInterface<BoardNode> n : node.getChildren()) {
                 NodeInterface<BoardNode> child = getValue(n, level + 1, maxLevel, mode == MAX ? MIN : MAX);
