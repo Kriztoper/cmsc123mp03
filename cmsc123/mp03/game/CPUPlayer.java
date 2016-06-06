@@ -14,34 +14,16 @@ public class CPUPlayer implements PlayerInterface, BroadcasterInterface {
     private HashMap<String, LinkList<ListenerInterface>> listeners;
     private int[] lastMove;
     
-    private int type;
-    
     public CPUPlayer(int type) {
         listeners = new HashMap<>();
         lastMove = new int[2];
-        
-        this.type = type;
     }
     
     @Override
     public int[][] move(int[][] board) {
         // TODO: Implement Minimax here.
         
-        // Sample stupid-ass move selection (not minimax)
-//        for (int i = 0; i < board.length; i++) {
-//            for (int j = board[i].length - 1; j >= 0; j--) {
-//                if (board[i][j] == 0) {
-//                    board[i][j] = type;
-//
-//                    lastMove[0] = i;
-//                    lastMove[1] = j;
-//                    
-//                    return board;
-//                }
-//            }
-//        }
-        
-    	Minimax minimax = new Minimax(new ConnectFourEvaluator(), new ConnectFourChildGenerator());
+    	Minimax minimax = new Minimax(new ConnectFourEvaluator(), new ConnectFourChildGenerator(), null);
     	BoardNode node = new BoardNode(board);
     	node.setCurrentPlayer(1);
     	int[][] newBoard = minimax.getBestMove(node, 5).getBoard();
@@ -54,8 +36,6 @@ public class CPUPlayer implements PlayerInterface, BroadcasterInterface {
     		}
     	}
     	return newBoard;
-    	
-        //return board;
     }
 
     @Override
