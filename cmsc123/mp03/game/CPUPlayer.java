@@ -23,7 +23,7 @@ public class CPUPlayer implements PlayerInterface, BroadcasterInterface {
     public int[][] move(int[][] board) {
         // TODO: Implement Minimax here.
         
-    	Minimax minimax = new Minimax(new ConnectFourEvaluator(), new ConnectFourChildGenerator(), null);
+    	Minimax minimax = new Minimax(new ConnectFourEvaluator(), new ConnectFourChildGenerator(), new ConnectFourPruner());
     	BoardNode node = new BoardNode(board);
     	node.setCurrentPlayer(1);
     	int[][] newBoard = minimax.getBestMove(node, 5).getBoard();

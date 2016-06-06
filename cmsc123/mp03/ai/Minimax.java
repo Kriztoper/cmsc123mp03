@@ -61,7 +61,7 @@ public class Minimax {
             
             return node;
         } else {
-            node.setChildren(pruner.prune(childGenerator.generateChildren(node)));
+            node.setChildren(childGenerator.generateChildren(node));
             
             for (NodeInterface<BoardNode> n : node.getChildren()) {
                 NodeInterface<BoardNode> child = getValue(n, level + 1, maxLevel, mode == MAX ? MIN : MAX);
@@ -89,6 +89,8 @@ public class Minimax {
             	
             }
             	
+            node.setChildren(pruner.prune(node.getChildren(), mode));
+            
             return node;
         }
     }
