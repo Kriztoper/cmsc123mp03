@@ -60,7 +60,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         
         // TODO: Assign depending on game mode
         player1 = new Player(PlayerInterface.PLAYER_1);
-        player2 = new CPUPlayer(PlayerInterface.PLAYER_2);
+        player2 = new Player(PlayerInterface.PLAYER_2);
         
         currentPlayer = player1;
         state = STATE_AWAITING_MOVE;
@@ -106,7 +106,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
             	@Override
                 public void obey(Object event) {
 
-                	lastMove = ((CPUPlayer) player2).getLastMove();
+                	lastMove = ((Player) player2).getLastMove();
                 	
                     if (isGameOver()!=0) {
                     	broadcast("update");
@@ -259,13 +259,10 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
     public int isGameOver() {
         // TODO: Check winning conditions here
         int i, j;
-        int counterEast = 0;
-        int counterWest = 0;
-        int counterSouth = 0;
-        int counterNorthWest = 0;
-        int counterSouthEast = 0;
-        int counterNorthEast = 0;
-        int counterSouthWest = 0;
+        int counterHorizontal = 0;
+        int counterVertical = 0;
+        int counterLeftDiagonal = 0;
+        int counterRightDiagonal = 0;
         
         boolean flagEast = true;
         boolean flagWest = true;
@@ -280,59 +277,59 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 
         for (int x = 1; x <= 3; x++ ) {
         	if (checkIndexBound(j + x, 7)) { // east
-        		if (boardArray[j][i] == boardArray[j + x][i]) {
-        			counterEast++;
+        		if (boardArray[j][i] == boardArray[j + x][i] && flagEast) {
+        			counterHorizontal++;
         		} else {
         			flagEast = false;
         		}
         	}
         	if (checkIndexBound(j - x, 7)) { // west
-        		if (boardArray[j][i] == boardArray[j - x][i]) {
-        			counterWest++;
+        		if (boardArray[j][i] == boardArray[j - x][i] && flagWest) {
+        			counterHorizontal++;
         		} else {
         			flagWest = false;
         		}
         	}
         	if (checkIndexBound(i + x, 6)) { // south
-         		if (boardArray[j][i] == boardArray[j][i + x]) {
-        			counterSouth++;
+         		if (boardArray[j][i] == boardArray[j][i + x] && flagSouth) {
+        			counterVertical++;
         		} else {
         			flagSouth = false;
         		}
         	}
         	if (checkIndexBound(j - x, 7) && checkIndexBound(i - x, 6)) { // northwest
-         		if (boardArray[j][i] == boardArray[j - x][i - x]) {
-         			counterNorthWest++;
+         		if (boardArray[j][i] == boardArray[j - x][i - x] && flagNorthWest) {
+         			counterLeftDiagonal++;
          		} else {
          			flagNorthWest = false;
          		}
         	}
         	if (checkIndexBound(j + x, 7) && checkIndexBound(i + x, 6)) { // southeast
-         		if (boardArray[j][i] == boardArray[j + x][i + x]) {
-         			counterSouthEast++;
+         		if (boardArray[j][i] == boardArray[j + x][i + x] && flagSouthEast) {
+         			counterLeftDiagonal++;
          		} else {
          			flagSouthEast = false;
          		}
         	}
         	if (checkIndexBound(j + x, 7) && checkIndexBound(i - x, 6)) { // northeast
-         		if (boardArray[j][i] == boardArray[j + x][i - x]) {
-         			counterNorthEast++;
+         		if (boardArray[j][i] == boardArray[j + x][i - x] && flagNorthEast) {
+         			counterRightDiagonal++;
          		} else {
          			flagNorthEast = false;
          		}
         	}
         	if (checkIndexBound(j - x, 7) && checkIndexBound(i + x, 6)) { // southwest
-         		if (boardArray[j][i] == boardArray[j - x][i + x]) {
-         			counterSouthWest++;
+         		if (boardArray[j][i] == boardArray[j - x][i + x] && flagSouthWest) {
+         			counterRightDiagonal++;
          		} else {
          			flagSouthWest = false;
          		}
         	}
         }
         
-        if ((counterEast == 3 && flagEast) || (counterWest == 3 && flagWest) || (counterSouth == 3 && flagSouth)
-        		|| (counterNorthWest == 3 && flagNorthWest) || (counterSouthEast == 3 && flagSouthEast)
-        		|| (counterNorthEast == 3 && flagNorthEast) || (counterSouthWest == 3 && flagSouthWest)) {
+        if ((counterHorizontal == 3 && (flagEast || flagWest)) || (counterVertical == 3 && flagSouth)
+        		|| (counterLeftDiagonal == 3 && (flagNorthWest || flagSouthEast))
+        		|| (counterRightDiagonal == 3 && (flagNorthEast || flagSouthWest))) {
         	return boardArray[j][i];
         }
         
