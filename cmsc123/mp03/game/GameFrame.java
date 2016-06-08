@@ -26,10 +26,11 @@ public class GameFrame {
     private static int DEFAULT_HEIGHT = 640;
     
     private UtilityFrame frame;
-    private JPanel menuPanel;
+    private JPanel menuPanel, howToPlayPanel;
     
     private GamePanel gamePanel;
     private ImageButton creditsButton, startGameButton, howToPlayButton;
+    private ImageButton backToMainButton;
 
     /**
      * Initializes this UI container.
@@ -38,6 +39,7 @@ public class GameFrame {
         frame = new UtilityFrame();
         
         initMenuPanel();
+        initHowToPlayPanel();
         initGamePanel();
     }
     
@@ -79,6 +81,35 @@ public class GameFrame {
     
     
     /**
+     * Initializes how to play panel
+     */
+    public void initHowToPlayPanel() {
+    	howToPlayPanel = new JPanel();
+    	howToPlayPanel.setLayout(null);
+        howToPlayPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        
+    	// Set background image for how to play panel
+        try {
+            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("assets/images/howtobg.png"))));
+            bg.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+            howToPlayPanel.add(bg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        // set back to main button
+		try {
+			backToMainButton = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/start-normal.png"))));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        backToMainButton.setBounds(250, 500, 150, 30);
+        howToPlayPanel.add(backToMainButton);      
+    }
+    
+    /**
      * Initializes game panel.
      */
     private void initGamePanel() {
@@ -105,12 +136,20 @@ public class GameFrame {
         return menuPanel;
     }
     
+    public JPanel getHowToPlayPanel() {
+    	return howToPlayPanel;
+    }
+    
     public JButton getStartGameButton() {
         return startGameButton;
     }
     
     public JButton getHowToPlayButton() {
     	 return howToPlayButton;
+    }
+    
+    public JButton getBackToMainButton() {
+    	return backToMainButton;
     }
 
 	public UtilityFrame getFrame() {
