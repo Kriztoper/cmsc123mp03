@@ -2,6 +2,6 @@ package cmsc123.mp03.ai;
 
 public interface PrunerInterface<E> {
 
-    public E[] prune(E[] objects);
+    public E[] prune(E[] objects, int mode);
     
 }
