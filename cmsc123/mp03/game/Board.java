@@ -105,7 +105,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 
             	@Override
                 public void obey(Object event) {
-
+            		
                 	lastMove = ((CPUPlayer) player2).getLastMove();
                 	
                     if (isGameOver()!=0) {
@@ -135,30 +135,32 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 
                 @Override
                 public void obey(Object event) {
-                    state = STATE_MAKING_MOVE;
-                    boardArray = player2.move(boardArray);
-                    
-                    lastMove = ((CPUPlayer) player2).getLastMove();
-                    ((Player) player1).setSpecificInsert(lastMove[0], lastMove[1]);
-                    
-                    if (isGameOver()!=0) {
-                    	broadcast("update");
-                    	if(isGameOver() == 1){
-                    		
-                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
-                    	}else{
-                    		
-                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                        broadcast("end");
-                        
-                        // TODO: Cleanup Resources or create destroy method
-                    } else {
-                        broadcast("update");
-                        
-                        ((BroadcasterInterface)player2).broadcast("move");
-                        currentPlayer = player1;
-                        state = STATE_AWAITING_MOVE;
+                    if (((Player) player1).isLegal()) {
+	                	state = STATE_MAKING_MOVE;
+	                    boardArray = player2.move(boardArray);
+	                    
+	                    lastMove = ((CPUPlayer) player2).getLastMove();
+	                    ((Player) player1).setSpecificInsert(lastMove[0], lastMove[1]);
+	                    
+	                    if (isGameOver()!=0) {
+	                    	broadcast("update");
+	                    	if(isGameOver() == 1){
+	                    		
+	                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+	                    	}else{
+	                    		
+	                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+	                    	}
+	                        broadcast("end");
+	                        
+	                        // TODO: Cleanup Resources or create destroy method
+	                    } else {
+	                        broadcast("update");
+	                        
+	                        ((BroadcasterInterface)player2).broadcast("move");
+	                        currentPlayer = player1;
+	                        state = STATE_AWAITING_MOVE;
+	                    }
                     }
                 }
             });

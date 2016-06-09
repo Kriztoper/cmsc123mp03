@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import cmsc123.mp03.framework.BroadcasterInterface;
 import cmsc123.mp03.framework.Event;
 import cmsc123.mp03.framework.ListenerInterface;
@@ -17,6 +19,7 @@ public class Player implements PlayerInterface, BroadcasterInterface {
     private int type;
     private int[] lastMove;
     private int radius;
+    private boolean legal = true;
     
     private HashMap<String, LinkList<ListenerInterface>> listeners;
     
@@ -75,7 +78,11 @@ public class Player implements PlayerInterface, BroadcasterInterface {
         
         if (inserts[column] < 0) {
             // TODO: Insert warning or something
+        	JOptionPane.showMessageDialog(null, "INVALID MOVE! Choose other moves!",
+        			"INVALID MOVE! Choose other moves!", JOptionPane.WARNING_MESSAGE);
+        	legal = false;
         } else {
+        	legal = true;
         	if (board[column][inserts[column]] == 0) {
             	lastMove[0] = column; // column
                 lastMove[1] = inserts[column]; // row
@@ -119,6 +126,14 @@ public class Player implements PlayerInterface, BroadcasterInterface {
 
     public int getType() {
         return type;
+    }
+
+	public boolean isLegal() {
+	    return legal;
+    }
+
+	public void setLegal(boolean legal) {
+	    this.legal = legal;
     }
     
 }

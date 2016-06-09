@@ -6,11 +6,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import cmsc123.mp03.framework.GamePanel;
 import cmsc123.mp03.ui.ImageButton;
+import cmsc123.mp03.ui.Panel;
 import cmsc123.mp03.ui.UtilityFrame;
 
 /**
@@ -26,7 +26,7 @@ public class GameFrame {
     private static int DEFAULT_HEIGHT = 640;
     
     private UtilityFrame frame;
-    private JPanel menuPanel, howToPlayPanel;
+    private Panel menuPanel, howToPlayPanel;
     
     private GamePanel gamePanel;
     private ImageButton creditsButton, startGameButton, howToPlayButton;
@@ -47,15 +47,13 @@ public class GameFrame {
      * Initializes the menu panel.
      */
     private void initMenuPanel() {
-        menuPanel = new JPanel();
+        menuPanel = new Panel();
         menuPanel.setLayout(null);
         menuPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         
         // Set background image for menu panel
         try {
-            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("assets/images/menu-bg.png"))));
-            bg.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            menuPanel.add(bg);
+            menuPanel.setBackGround(new ImageIcon(ImageIO.read(new File("assets/images/menu-bg.png"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,7 +71,7 @@ public class GameFrame {
         startGameButton.setBounds(250, 400, 150, 30);
         creditsButton.setBounds(250, 450, 150, 30);
         howToPlayButton.setBounds(250, 500, 150, 30);
-        
+
         menuPanel.add(startGameButton);
         menuPanel.add(creditsButton);
         menuPanel.add(howToPlayButton);
@@ -84,15 +82,13 @@ public class GameFrame {
      * Initializes how to play panel
      */
     public void initHowToPlayPanel() {
-    	howToPlayPanel = new JPanel();
+    	howToPlayPanel = new Panel();
     	howToPlayPanel.setLayout(null);
         howToPlayPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         
     	// Set background image for how to play panel
         try {
-            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("assets/images/howtobg.png"))));
-            bg.setBounds(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-            howToPlayPanel.add(bg);
+        	howToPlayPanel.setBackGround(new ImageIcon(ImageIO.read(new File("assets/images/howtobg.png"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
