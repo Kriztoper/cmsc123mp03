@@ -19,7 +19,8 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
         int blockTwoCounter = 0;
         
         int enemyBlockThreeCounter = 0;
-
+        int enemyBlockFourCounter = 0;
+        
         // horizontal
         for (int i = 0; i < 6; i++) {
           for (int j = 0; j <= 3; j++) {
@@ -35,6 +36,11 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
                 		enemyBlockThreeCounter++;
                 	}
+                	
+                	if (enemyNodeBlockCounter == 4) {
+                		enemyBlockFourCounter++;
+                	}
+                	
                 	nodeBlockCounter = 0;
                 	enemyNodeBlockCounter = 0;
                 }
@@ -56,6 +62,11 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
                 		enemyBlockThreeCounter++;
                 	}
+                	
+                	if (enemyNodeBlockCounter == 4) {
+                		enemyBlockFourCounter++;
+                	}
+                	
                 	nodeBlockCounter = 0;
                 	enemyNodeBlockCounter = 0;
                 }
@@ -77,6 +88,11 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
                 		enemyBlockThreeCounter++;
                 	}
+                	
+                	if (enemyNodeBlockCounter == 4) {
+                		enemyBlockFourCounter++;
+                	}
+                	
                 	nodeBlockCounter = 0;
                 	enemyNodeBlockCounter = 0;
         		}
@@ -98,15 +114,20 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
                 		enemyBlockThreeCounter++;
                 	}
+                	
+                	if (enemyNodeBlockCounter == 4) {
+                		enemyBlockFourCounter++;
+                	}
+                	
                 	nodeBlockCounter = 0;
                 	enemyNodeBlockCounter = 0;
         		}
         	}
         }
         
-        return ((100000 * blockFourCounter) + (3 * blockThreeCounter) + (2 * blockTwoCounter))
+        return ((enemyBlockFourCounter != 0) ? (-100000) : ((100000 * blockFourCounter) + (3 * blockThreeCounter) + (2 * blockTwoCounter))
         		+ (boardNode.getLevel() == 1 ? (100000 * enemyBlockThreeCounter) : 0 )							// blocking move
-        		+ ((boardNode.getLevel() == 1 && blockFourCounter != 0) ? (100000 * blockFourCounter) : 0 );	// win in 1 move
+        		+ ((boardNode.getLevel() == 1 && blockFourCounter != 0) ? (100000 * blockFourCounter) : 0 ));	// win in 1 move
     }
     
     private boolean checkChipValidity(int value) {

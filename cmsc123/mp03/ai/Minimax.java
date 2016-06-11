@@ -61,7 +61,7 @@ public class Minimax {
             
             return node;
         } else {
-            node.setChildren(childGenerator.generateChildren(node));
+            node.setChildren(pruner.prune(childGenerator.generateChildren(node), mode));
             
             for (NodeInterface<BoardNode> n : node.getChildren()) {
                 NodeInterface<BoardNode> child = getValue(n, level + 1, maxLevel, mode == MAX ? MIN : MAX);
@@ -69,11 +69,7 @@ public class Minimax {
             }
 
             BoardNode value = null;
-            try {
-            	value = node.getChildren()[0].getValue();
-            } catch (Exception e) {
-            	
-            }
+            value = node.getChildren()[0].getValue();
             	
             for (NodeInterface<BoardNode> n : node.getChildren()) {
                 if (mode == MAX && n.getValue().getValue() > value.getValue()) {
@@ -83,14 +79,8 @@ public class Minimax {
                 }
             }
             
-            try {
-            	node.getValue().setValue(value.getValue());
-            } catch (Exception e) {
+            node.getValue().setValue(value.getValue());
             	
-            }
-            	
-            node.setChildren(pruner.prune(node.getChildren(), mode));
-            
             return node;
         }
     }
