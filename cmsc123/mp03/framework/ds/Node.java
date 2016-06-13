@@ -1,5 +1,7 @@
 package cmsc123.mp03.framework.ds;
 
+import cmsc123.mp03.game.BoardNode;
+
 public class Node<E> implements NodeInterface<E> {
 
     private E value;
@@ -29,4 +31,11 @@ public class Node<E> implements NodeInterface<E> {
         this.value = value;
     }
 
+    public void displayChildren() {
+    	int x = 1;
+    	for (NodeInterface<E> child: children) {
+    		System.out.println("child "+(x++)+" value "+((BoardNode) child.getValue()).getValue());
+    		((BoardNode) child.getValue()).displayBoard();
+    	}
+    }
 }

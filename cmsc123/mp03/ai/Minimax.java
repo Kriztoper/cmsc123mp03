@@ -24,30 +24,46 @@ public class Minimax {
         node.setChildren(childGenerator.generateChildren(node));
         NodeInterface<BoardNode> bestNode = node.getChildren()[0];
         
+        System.out.println("##########################################################################################");
         // 1st level node evaluation to check for win in 1 move or blocking move (prevent opponent to win in 1 move)
         for (NodeInterface<BoardNode> currentChild : node.getChildren()) {
 
-            currentChild = getValue(currentChild, 1, 1, MIN);
+        	currentChild.getValue().setWinCheck(true);
+            currentChild.getValue().setValue(evaluator.evaluate(currentChild.getValue()));//getValue(currentChild, 1, 1, MIN);
             
             if (currentChild.getValue().getValue() > bestNode.getValue().getValue()) {
-                bestNode = currentChild;
+            	bestNode = currentChild;
             }
         }
         
         // return automatically if best move is found
         if (bestNode.getValue().getValue() >= 100000) {
+        	System.out.println("returning automatically and value "+bestNode.getValue().getValue());
+        	bestNode.getValue().displayBoard();
         	return bestNode.getValue();
         }
         
+        int x = 1;
         for (NodeInterface<BoardNode> currentChild : node.getChildren()) {
 
+        	currentChild.getValue().setWinCheck(false);
             currentChild = getValue(currentChild, 1, maxTreeDepth, MIN);
+            
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("child "+(x++)+" value "+currentChild.getValue().getValue());
+            currentChild.getValue().displayBoard();
+            
+            System.out.println("Children");
+            ((Node<BoardNode>) currentChild).displayChildren();
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             
             if (currentChild.getValue().getValue() > bestNode.getValue().getValue()) {
                 bestNode = currentChild;
             }
         }
         
+        System.out.println("chosen best move and value "+bestNode.getValue().getValue());
+        bestNode.getValue().displayBoard();
         return bestNode.getValue();
     }
     
@@ -59,6 +75,9 @@ public class Minimax {
     	if (level == maxLevel) {
             node.getValue().setValue(evaluator.evaluate(node.getValue()));
             
+//            System.out.println("level "+level+" child value "+node.getValue().getValue());
+//            node.getValue().displayBoard();
+            
             return node;
         } else {
             node.setChildren(pruner.prune(childGenerator.generateChildren(node), mode));
@@ -69,7 +88,11 @@ public class Minimax {
             }
 
             BoardNode value = null;
-            value = node.getChildren()[0].getValue();
+            try {
+            	value = node.getChildren()[0].getValue();
+            } catch (Exception e) {
+            	
+            }
             	
             for (NodeInterface<BoardNode> n : node.getChildren()) {
                 if (mode == MAX && n.getValue().getValue() > value.getValue()) {
@@ -79,8 +102,15 @@ public class Minimax {
                 }
             }
             
-            node.getValue().setValue(value.getValue());
+            try {
+            	node.getValue().setValue(value.getValue());
+            } catch (Exception e) {
             	
+            }
+            	
+//            System.out.println("level "+level+" child value "+node.getValue().getValue());
+//            node.getValue().displayBoard();
+            
             return node;
         }
     }

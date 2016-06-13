@@ -23,7 +23,7 @@ public class ConnectFourPruner implements PrunerInterface<NodeInterface<BoardNod
     		int value = objects[i].getValue().getValue();
     		
     		if ((mode == 1 && value >= 100000) // if we encounter a win for CPUPlayer and mode is MAX we prune nodes to only winning nodes
-    				|| (mode == 2 && value < 0)) { // if we encounter a win for opponent and mode is MIN we prune nodes to only losing nodes
+    				|| (mode == 2 && value <= -100000)) { // if we encounter a win for opponent and mode is MIN we prune nodes to only losing nodes
     			node.add((Node) objects[i]);
     		}
     	}

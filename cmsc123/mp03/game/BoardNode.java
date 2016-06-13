@@ -6,6 +6,7 @@ public class BoardNode {
     private int value;
     private int currentPlayer;
     private int level;
+    private boolean winCheck = false;
     
     public BoardNode(int[][] board) {
         this.board = board;
@@ -44,4 +45,21 @@ public class BoardNode {
 	    this.level = level;
     }
     
+	public void displayBoard() {
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 7; j++) {
+				System.out.print(board[j][i]+" ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
+
+	public boolean isWinCheck() {
+	    return winCheck;
+    }
+
+	public void setWinCheck(boolean winCheck) {
+	    this.winCheck = winCheck;
+    }
 }
