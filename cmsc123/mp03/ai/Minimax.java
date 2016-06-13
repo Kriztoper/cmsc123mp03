@@ -28,7 +28,6 @@ public class Minimax {
         // 1st level node evaluation to check for win in 1 move or blocking move (prevent opponent to win in 1 move)
         for (NodeInterface<BoardNode> currentChild : node.getChildren()) {
 
-        	currentChild.getValue().setWinCheck(true);
             currentChild.getValue().setValue(evaluator.evaluate(currentChild.getValue()));//getValue(currentChild, 1, 1, MIN);
             
             if (currentChild.getValue().getValue() > bestNode.getValue().getValue()) {
@@ -46,7 +45,6 @@ public class Minimax {
         int x = 1;
         for (NodeInterface<BoardNode> currentChild : node.getChildren()) {
 
-        	currentChild.getValue().setWinCheck(false);
             currentChild = getValue(currentChild, 1, maxTreeDepth, MIN);
             
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
