@@ -55,11 +55,4 @@ public class BoardNode {
 		System.out.println();
 	}
 
-	public boolean isWinCheck() {
-	    return winCheck;
-    }
-
-	public void setWinCheck(boolean winCheck) {
-	    this.winCheck = winCheck;
-    }
 }

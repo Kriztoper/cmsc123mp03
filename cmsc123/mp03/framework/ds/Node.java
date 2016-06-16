@@ -41,18 +41,4 @@ public class Node<E> implements NodeInterface<E> {
     	}
     }
 
-	public boolean isAbleToRemoveLosingMoves() {
-		int x = 1;
-		for (NodeInterface<E> child: children) {
-			System.out.println("child "+(x++)+" value "+((BoardNode) child.getValue()).getValue());
-    		((BoardNode) child.getValue()).displayBoard();
-    		if (((BoardNode) child.getValue()).getValue() >= 100000) {
-    			return true;
-    		}
-    	}
-		
-		return false;
-    }
-    
-    
 }

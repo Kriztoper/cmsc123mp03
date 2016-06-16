@@ -17,7 +17,6 @@ public class ConnectFourPruner implements PrunerInterface<NodeInterface<BoardNod
     	evaluator = new ConnectFourEvaluator();
     	int size = objects.length;
     	ArrayList<Node> decisiveNodes = new ArrayList<Node>();
-    	ArrayList<Node> normalNodes = new ArrayList<Node>();
     	
     	for (int i = 0; i < size; i++) {
     		objects[i].getValue().setValue(evaluator.evaluate(objects[i].getValue()));
@@ -26,39 +25,9 @@ public class ConnectFourPruner implements PrunerInterface<NodeInterface<BoardNod
     		if ((mode == 1 && value >= 100000) // if we encounter a win for CPUPlayer and mode is MAX we prune nodes to only winning nodes
     				|| (mode == 2 && value < 0)) { // if we encounter a win for opponent and mode is MIN we prune nodes to only losing nodes
     			decisiveNodes.add((Node) objects[i]);
-    		}/* else {
-    			normalNodes.add((Node) objects[i]);
-    		}*/
+    		}
     	}
-    	
-//    	if (!decisiveNodes.isEmpty()) {
-//    		
-//    		int x = 1;
-//    		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//    		for (Node child: decisiveNodes) {
-//    			System.out.println("pruned child "+(x++)+" value "+((BoardNode) child.getValue()).getValue());
-//    			((BoardNode) child.getValue()).displayBoard();
-//    		}
-//    		
-//    		return decisiveNodes.toArray(new Node[decisiveNodes.size()]);
-//    	} else {
-//    		for (int i = 0; i < normalNodes.size(); i++) {
-//    			if (((BoardNode) normalNodes.get(i).getValue()).getValue() <= -100000 && mode == 1) {
-//    				System.out.println("ENTERED");
-//    				normalNodes.remove(i);
-//    			}
-//    		}
-//    		
-//    		int x = 1;
-//    		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//    		for (Node child: normalNodes) {
-//    			System.out.println("normal child "+(x++)+" value "+((BoardNode) child.getValue()).getValue());
-//    			((BoardNode) child.getValue()).displayBoard();
-//    		}
-//    		
-//    		return normalNodes.toArray(new Node[normalNodes.size()]);
-//    	}
-    	
+    		
     	return objects;
     }
 

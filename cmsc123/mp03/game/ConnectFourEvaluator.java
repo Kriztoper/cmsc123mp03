@@ -6,7 +6,6 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
 
 	private int nodeBlockCounter = 0;
 	private BoardNode boardNode;
-	private int enemyNodeBlockCounter = 0;
 	
     @Override
     public int evaluate(Object obj) {
@@ -17,9 +16,6 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
         int blockFourCounter = 0;
         int blockThreeCounter = 0;
         int blockTwoCounter = 0;
-        
-        int enemyBlockThreeCounter = 0;
-        int enemyBlockFourCounter = 0;
         
         // horizontal
         for (int i = 0; i < 6; i++) {
@@ -33,16 +29,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
-                		enemyBlockThreeCounter++;
-                	}
-                	
-                	if (enemyNodeBlockCounter == 4) {
-                		enemyBlockFourCounter++;
-                	}
-                	
                 	nodeBlockCounter = 0;
-                	enemyNodeBlockCounter = 0;
                 }
             }
         }
@@ -59,16 +46,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
-                		enemyBlockThreeCounter++;
-                	}
-                	
-                	if (enemyNodeBlockCounter == 4) {
-                		enemyBlockFourCounter++;
-                	}
-                	
                 	nodeBlockCounter = 0;
-                	enemyNodeBlockCounter = 0;
                 }
             }
         }
@@ -85,16 +63,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
-                		enemyBlockThreeCounter++;
-                	}
-                	
-                	if (enemyNodeBlockCounter == 4) {
-                		enemyBlockFourCounter++;
-                	}
-                	
                 	nodeBlockCounter = 0;
-                	enemyNodeBlockCounter = 0;
         		}
         	}
         }
@@ -111,41 +80,20 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
-                		enemyBlockThreeCounter++;
-                	}
-                	
-                	if (enemyNodeBlockCounter == 4) {
-                		enemyBlockFourCounter++;
-                	}
-                	
                 	nodeBlockCounter = 0;
-                	enemyNodeBlockCounter = 0;
         		}
         	}
         }
         
-        int value = ((3 * blockThreeCounter) + (2 * blockTwoCounter))
-        		+ ((boardNode.getCurrentPlayer() == 1) ? (-10000000) : (100000 * blockFourCounter) );
-//        		- ((blockThreeCounter != 0) ? (100000 * enemyBlockThreeCounter) : 0 );							// blocking move
-//        		+ ((blockFourCounter != 0 && boardNode.getLevel() == 1) ? (100000 * blockFourCounter) : 0 );	// win in 1 move
-        
-        return value;
-        
-        //return ((enemyBlockFourCounter != 0 && boardNode.getLevel() % 2 == 1) ? (-1 * value) : (value) );	
+        return ((3 * blockThreeCounter) + (2 * blockTwoCounter))
+        		+ ((boardNode.getCurrentPlayer() == Player.PLAYER_1) ? (-10000000) : (100000 * blockFourCounter) );
     }
     
     private boolean checkChipValidity(int value) {
-    	int enemyPlayer = (boardNode.getCurrentPlayer() == 1 ? 2 : 1 );
     	
     	if (value == boardNode.getCurrentPlayer() || value == 0) {
 	    	if (value == boardNode.getCurrentPlayer()) {
 	    		nodeBlockCounter++;
-	    	}
-	    	return true;
-    	} else if (value == enemyPlayer) {
-	    	if (value == enemyPlayer) {
-	    		enemyNodeBlockCounter++;
 	    	}
 	    	return true;
     	}
