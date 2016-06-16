@@ -87,6 +87,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
         
         return ((3 * blockThreeCounter) + (2 * blockTwoCounter))
         		+ ((boardNode.getCurrentPlayer() == Player.PLAYER_1) ? (-10000000) : (100000 * blockFourCounter) );
+        // compared to Player.PLAYER_1 if player1 is Player and Player2 is CPUPlayer
     }
     
     private boolean checkChipValidity(int value) {
