@@ -125,9 +125,14 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
         	}
         }
         
-        int value = ((100000 * blockFourCounter) + (3 * blockThreeCounter) + (2 * blockTwoCounter));
+        int value = ((3 * blockThreeCounter) + (2 * blockTwoCounter))
+        		+ ((boardNode.getCurrentPlayer() == 1) ? (-10000000) : (100000 * blockFourCounter) );
+//        		- ((blockThreeCounter != 0) ? (100000 * enemyBlockThreeCounter) : 0 );							// blocking move
+//        		+ ((blockFourCounter != 0 && boardNode.getLevel() == 1) ? (100000 * blockFourCounter) : 0 );	// win in 1 move
         
-        return ((enemyBlockFourCounter != 0 && boardNode.getLevel() % 2 == 1) ? (-1 * value) : (value) );	
+        return value;
+        
+        //return ((enemyBlockFourCounter != 0 && boardNode.getLevel() % 2 == 1) ? (-1 * value) : (value) );	
     }
     
     private boolean checkChipValidity(int value) {
