@@ -54,7 +54,6 @@ public class Minimax {
         node.setChildren(childGenerator.generateChildren(node));
         bestNode = node.getChildren()[0];
         
-        int x = 1;
         for (NodeInterface<BoardNode> currentChild : node.getChildren()) {
 
             currentChild = getValue(currentChild, 1, maxTreeDepth, MIN);
