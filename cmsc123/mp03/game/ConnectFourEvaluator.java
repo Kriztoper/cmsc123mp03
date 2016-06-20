@@ -91,11 +91,14 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
     }
     
     private boolean checkChipValidity(int value) {
+    	int enemyPlayer = (boardNode.getCurrentPlayer() == 1 ? 2 : 1 );
     	
     	if (value == boardNode.getCurrentPlayer() || value == 0) {
 	    	if (value == boardNode.getCurrentPlayer()) {
 	    		nodeBlockCounter++;
 	    	}
+	    	return true;
+    	} else if (value == enemyPlayer) {
 	    	return true;
     	}
     	
