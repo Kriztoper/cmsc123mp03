@@ -1,7 +1,5 @@
 package cmsc123.mp03.framework.ds;
 
-import cmsc123.mp03.game.BoardNode;
-
 public class Node<E> implements NodeInterface<E> {
 
     private E value;

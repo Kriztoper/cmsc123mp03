@@ -3,7 +3,6 @@ package cmsc123.mp03.ai;
 import cmsc123.mp03.framework.ds.Node;
 import cmsc123.mp03.framework.ds.NodeInterface;
 import cmsc123.mp03.game.BoardNode;
-import cmsc123.mp03.game.ChildrenPrinter;
 import cmsc123.mp03.game.ConnectFourWinChecker;
 
 public class Minimax {
