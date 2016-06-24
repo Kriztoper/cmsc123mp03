@@ -30,15 +30,4 @@ public class Node<E> implements NodeInterface<E> {
     public void setValue(E value) {
         this.value = value;
     }
-
-    public void displayChildren() {
-    	int x = 1;
-    	if (children != null) {
-	    	for (NodeInterface<E> child: children) {
-	    		System.out.println("child "+(x++)+" value "+((BoardNode) child.getValue()).getValue());
-	    		((BoardNode) child.getValue()).displayBoard();
-	    	}
-    	}
-    }
-
 }

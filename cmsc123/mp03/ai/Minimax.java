@@ -3,6 +3,8 @@ package cmsc123.mp03.ai;
 import cmsc123.mp03.framework.ds.Node;
 import cmsc123.mp03.framework.ds.NodeInterface;
 import cmsc123.mp03.game.BoardNode;
+import cmsc123.mp03.game.ChildrenPrinter;
+import cmsc123.mp03.game.ConnectFourWinChecker;
 
 public class Minimax {
 
@@ -12,11 +14,13 @@ public class Minimax {
     private EvaluatorInterface evaluator;
     private ChildGeneratorInterface childGenerator;
     private PrunerInterface<NodeInterface<BoardNode>> pruner;
+    private ConnectFourWinChecker winChecker;
     
     public Minimax(EvaluatorInterface evaluator, ChildGeneratorInterface childGenerator, PrunerInterface pruner) {
         this.evaluator = evaluator;
         this.childGenerator = childGenerator;
         this.pruner = pruner;
+        winChecker = new ConnectFourWinChecker();
     }
     
     public BoardNode getBestMove(BoardNode board, int maxTreeDepth) {
@@ -71,7 +75,7 @@ public class Minimax {
     	node.getValue().setLevel(level);
     	
     	// Base case
-    	if (level == maxLevel || isGameOver(node.getValue().getBoard())) {
+    	if (level == maxLevel || winChecker.isGameOver(node.getValue().getBoard())) {
             node.getValue().setValue(evaluator.evaluate(node.getValue()));
             
             return node;
@@ -106,46 +110,5 @@ public class Minimax {
             	
             return node;
         }
-    }
-    
-    public boolean isGameOver(int[][] board) {
-    	
-    	// horizontal
-    	for (int i = 0; i < 6; i++) {
-    		for (int j = 0; j <= 3; j++) {
-    			if (board[j][i] != 0 && board[j][i] == board[j+1][i] && board[j][i] == board[j+2][i] && board[j][i] == board[j+3][i]) {
-    				return true;
-    			}
-    		}
-    	}
-
-    	// vertical
-    	for (int j = 0; j < 7; j++) {
-    		for (int i = 0; i <= 2; i++) {
-    			if (board[j][i] != 0 && board[j][i] == board[j][i+1] && board[j][i] == board[j][i+2] && board[j][i] == board[j][i+3]) {
-    				return true;
-    			}
-    		}
-    	}
-
-    	// left diagonal
-    	for (int i = 0; i <= 2; i++) {
-    		for (int j = 0; j <= 3; j++) {
-    			if (board[j][i] != 0 && board[j][i] == board[j+1][i+1] && board[j][i] == board[j+2][i+2] && board[j][i] == board[j+3][i+3]) {
-    				return true;
-    			}
-    		}
-    	}
-    	
-    	// right diagonal
-    	for (int i = 5; i >= 3; i--) {
-    		for (int j = 0; j <= 3; j++) {
-    			if (board[j][i] != 0 && board[j][i] == board[j+1][i-1] && board[j][i] == board[j+2][i-2] && board[j][i] == board[j+3][i-3]) {
-    				return true;
-    			}
-    		}
-    	}
-    	
-    	return false;
     }
 }
