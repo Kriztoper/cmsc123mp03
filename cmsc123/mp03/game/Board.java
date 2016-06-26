@@ -375,9 +375,8 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
         	}
         }
         
-        if ((counterHorizontal >= 3 && (flagEast || flagWest)) || (counterVertical >= 3 && flagSouth)
-        		|| (counterLeftDiagonal >= 3 && (flagNorthWest || flagSouthEast))
-        		|| (counterRightDiagonal >= 3 && (flagNorthEast || flagSouthWest))) {
+        if ((counterHorizontal >= 3) || (counterVertical >= 3 && flagSouth)
+        		|| (counterLeftDiagonal >= 3) || (counterRightDiagonal >= 3)) {
         	return boardArray[j][i];
         }
         

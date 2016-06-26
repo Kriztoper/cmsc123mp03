@@ -28,5 +28,4 @@ public class Node<E> implements NodeInterface<E> {
     public void setValue(E value) {
         this.value = value;
     }
-
 }

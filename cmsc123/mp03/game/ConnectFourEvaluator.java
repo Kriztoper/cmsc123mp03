@@ -6,7 +6,6 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
 
 	private int nodeBlockCounter = 0;
 	private BoardNode boardNode;
-	private int enemyNodeBlockCounter = 0;
 	
     @Override
     public int evaluate(Object obj) {
@@ -18,8 +17,6 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
         int blockThreeCounter = 0;
         int blockTwoCounter = 0;
         
-        int enemyBlockThreeCounter = 0;
-
         // horizontal
         for (int i = 0; i < 6; i++) {
           for (int j = 0; j <= 3; j++) {
@@ -32,11 +29,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
-                		enemyBlockThreeCounter++;
-                	}
                 	nodeBlockCounter = 0;
-                	enemyNodeBlockCounter = 0;
                 }
             }
         }
@@ -53,11 +46,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
-                		enemyBlockThreeCounter++;
-                	}
                 	nodeBlockCounter = 0;
-                	enemyNodeBlockCounter = 0;
                 }
             }
         }
@@ -74,11 +63,7 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
-                		enemyBlockThreeCounter++;
-                	}
                 	nodeBlockCounter = 0;
-                	enemyNodeBlockCounter = 0;
         		}
         	}
         }
@@ -95,18 +80,14 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
                 		blockTwoCounter++;
                 	}
                 	
-                	if (enemyNodeBlockCounter == 3 && nodeBlockCounter == 1) {	// block is 3
-                		enemyBlockThreeCounter++;
-                	}
                 	nodeBlockCounter = 0;
-                	enemyNodeBlockCounter = 0;
         		}
         	}
         }
         
-        return ((100000 * blockFourCounter) + (3 * blockThreeCounter) + (2 * blockTwoCounter))
-        		+ (boardNode.getLevel() == 1 ? (100000 * enemyBlockThreeCounter) : 0 )							// blocking move
-        		+ ((boardNode.getLevel() == 1 && blockFourCounter != 0) ? (100000 * blockFourCounter) : 0 );	// win in 1 move
+        return ((3 * blockThreeCounter) + (2 * blockTwoCounter))
+        		+ ((boardNode.getCurrentPlayer() == Player.PLAYER_1) ? (-10000000) : (100000 * blockFourCounter) );
+        // compared to Player.PLAYER_1 if player1 is Player and Player2 is CPUPlayer
     }
     
     private boolean checkChipValidity(int value) {
@@ -118,9 +99,6 @@ public class ConnectFourEvaluator implements EvaluatorInterface {
 	    	}
 	    	return true;
     	} else if (value == enemyPlayer) {
-	    	if (value == enemyPlayer) {
-	    		enemyNodeBlockCounter++;
-	    	}
 	    	return true;
     	}
     	
