@@ -235,6 +235,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 	if (isGameOver() == 1) {
                 		
                 		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                		((Player) player1).setLegal(false);
                 	} else {
                 		
                 		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
