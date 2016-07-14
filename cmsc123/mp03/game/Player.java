@@ -77,9 +77,8 @@ public class Player implements PlayerInterface, BroadcasterInterface {
         int column = (int) (location.getX()/clickArea);
         
         if (inserts[column] < 0) {
-            // TODO: Insert warning or something
-        	JOptionPane.showMessageDialog(null, "INVALID MOVE! Choose other moves!",
-        			"INVALID MOVE! Choose other moves!", JOptionPane.WARNING_MESSAGE);
+//        	JOptionPane.showMessageDialog(null, "INVALID MOVE! Choose other moves!",
+//        			"INVALID MOVE! Choose other moves!", JOptionPane.WARNING_MESSAGE);
         	legal = false;
         } else {
         	legal = true;

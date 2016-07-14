@@ -9,8 +9,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 import cmsc123.mp03.framework.GameInterface;
 import cmsc123.mp03.framework.ListenerInterface;
+import cmsc123.mp03.ui.DialogPanel;
 
 public class Game implements GameInterface {
 
@@ -110,6 +113,75 @@ public class Game implements GameInterface {
             	frameContainer.getFrame().setSize(640,640);
             	frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
                 // TODO: Some sort of congratulations here for the player.
+            }
+        });
+        
+        board.addListener("player1 wins", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+            	
+            	DialogPanel dialogPanel = new DialogPanel("PLAYER 1 WINS", frameContainer.getFrame().getCurrentPanel().getWidth(),
+            			frameContainer.getFrame().getCurrentPanel().getHeight());
+            	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
+            	frameContainer.getFrame().setCurrentPanel(dialogPanel);
+            	
+            	dialogPanel.getOkButton().addActionListener(new ActionListener() {
+
+					@Override
+                    public void actionPerformed(ActionEvent e) {
+						frameContainer.getFrame().setSize(640,640);
+						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+                    }
+            		
+            	});
+            	
+            }
+        });
+        
+        board.addListener("player2 wins", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+            	
+            	DialogPanel dialogPanel = new DialogPanel("PLAYER 2 WINS", frameContainer.getFrame().getCurrentPanel().getWidth(),
+            			frameContainer.getFrame().getCurrentPanel().getHeight());
+            	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
+            	frameContainer.getFrame().setCurrentPanel(dialogPanel);
+            	
+            	dialogPanel.getOkButton().addActionListener(new ActionListener() {
+
+					@Override
+                    public void actionPerformed(ActionEvent e) {
+						frameContainer.getFrame().setSize(640,640);
+						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+                    }
+            		
+            	});
+            	
+            }
+        });
+        
+        board.addListener("game drawn", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+            	
+            	DialogPanel dialogPanel = new DialogPanel("GAME DRAWN", frameContainer.getFrame().getCurrentPanel().getWidth(),
+            			frameContainer.getFrame().getCurrentPanel().getHeight());
+            	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
+            	frameContainer.getFrame().setCurrentPanel(dialogPanel);
+            	
+            	dialogPanel.getOkButton().addActionListener(new ActionListener() {
+
+					@Override
+                    public void actionPerformed(ActionEvent e) {
+						frameContainer.getFrame().setSize(640,640);
+						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+                    }
+            		
+            	});
+            	
             }
         });
         
