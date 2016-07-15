@@ -43,6 +43,7 @@ public class Game implements GameInterface {
         
                 // Show Game Panel
                 frameContainer.getFrame().setCurrentPanel(frameContainer.getGamePanel());
+                frameContainer.getFrame().setResizable(true);
                 initializeGame();
             }
         });
@@ -112,6 +113,7 @@ public class Game implements GameInterface {
             public void obey(Object event) {
             	frameContainer.getFrame().setSize(640,640);
             	frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+            	frameContainer.getFrame().setResizable(false);
                 // TODO: Some sort of congratulations here for the player.
             }
         });
@@ -132,6 +134,7 @@ public class Game implements GameInterface {
                     public void actionPerformed(ActionEvent e) {
 						frameContainer.getFrame().setSize(640,640);
 						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+						frameContainer.getFrame().setResizable(false);
                     }
             		
             	});
@@ -155,6 +158,7 @@ public class Game implements GameInterface {
                     public void actionPerformed(ActionEvent e) {
 						frameContainer.getFrame().setSize(640,640);
 						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+						frameContainer.getFrame().setResizable(false);
                     }
             		
             	});
@@ -178,6 +182,7 @@ public class Game implements GameInterface {
                     public void actionPerformed(ActionEvent e) {
 						frameContainer.getFrame().setSize(640,640);
 						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+						frameContainer.getFrame().setResizable(false);
                     }
             		
             	});
@@ -228,6 +233,7 @@ public class Game implements GameInterface {
         
         // Show Menu
         frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+        frameContainer.getFrame().setResizable(false);
         frameContainer.show();
     }
 

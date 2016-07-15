@@ -1,5 +1,6 @@
 package cmsc123.mp03.game;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 
@@ -30,7 +31,7 @@ public class GameFrame {
     
     private GamePanel gamePanel;
     private ImageButton creditsButton, startGameButton, howToPlayButton;
-    private ImageButton backToMainButton;
+    private JButton backToMainButton;
 
     /**
      * Initializes this UI container.
@@ -64,7 +65,6 @@ public class GameFrame {
 			creditsButton   = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/credits-normal.png"))));
 			howToPlayButton = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/how-to-play-normal.png"))));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
@@ -94,14 +94,11 @@ public class GameFrame {
         }
         
         // set back to main button
-		try {
-			backToMainButton = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/start-normal.png"))));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        backToMainButton = new JButton("BACK");
+        backToMainButton.setBackground(Color.BLACK/*new Color(255, 128, 0)*/);
+        backToMainButton.setForeground(Color.WHITE);
         
-        backToMainButton.setBounds(250, 500, 150, 30);
+        backToMainButton.setBounds(270, 500, 100, 30);
         howToPlayPanel.add(backToMainButton);      
     }
     

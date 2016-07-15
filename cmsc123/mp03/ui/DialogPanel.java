@@ -17,15 +17,16 @@ public class DialogPanel extends Panel {
 	
 	public DialogPanel(String dialog, int width, int height) {
 		
-		super.setSize(width, height);
+		int midX = width / 4;
+		int midY = height / 4;
 		
-		// NOTE: Don't rearrange the order of adding the components. It will affect the output!
+		setSize(width, height);
 		
 		okButton = new JButton("OK");
 		okButton.setBackground(Color.WHITE);
 		okButton.setForeground(new Color(255, 128, 0));
-		okButton.setBounds(300, 200, 55, 30);
-		super.add(okButton);
+		okButton.setBounds(midX + 145, midY + 50, 60, 30);
+		add(okButton);
 
 		dialogText = new JLabel(dialog, SwingConstants.CENTER);
 		dialogText.setVerticalAlignment(SwingConstants.TOP);
@@ -33,14 +34,14 @@ public class DialogPanel extends Panel {
 		dialogText.setOpaque(true);
 		dialogText.setBackground(Color.WHITE);
 		dialogText.setForeground(new Color(255, 128, 0));
-		dialogText.setBounds(150, 150, 350, 90);
-		super.add(dialogText);
+		dialogText.setBounds(midX, midY, 350, 90);
+		add(dialogText);
 		
 		labelsPanel = new JPanel();
 		labelsPanel.setLayout(new BorderLayout());
 		labelsPanel.setBackground(new Color(255, 128, 0));
-		labelsPanel.setBounds(150, 130, 350, 110);
-		super.add(labelsPanel);
+		labelsPanel.setBounds(midX, midY - 20, 350, 110);
+		add(labelsPanel);
 	}
 
 	public JButton getOkButton() {
