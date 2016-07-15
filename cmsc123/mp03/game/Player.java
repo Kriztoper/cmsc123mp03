@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
-
 import cmsc123.mp03.framework.BroadcasterInterface;
 import cmsc123.mp03.framework.Event;
 import cmsc123.mp03.framework.ListenerInterface;

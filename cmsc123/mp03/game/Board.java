@@ -8,8 +8,6 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
-
 import cmsc123.mp03.framework.BroadcasterInterface;
 import cmsc123.mp03.framework.DrawableInterface;
 import cmsc123.mp03.framework.Event;
