@@ -14,17 +14,20 @@ import javax.swing.ImageIcon;
 import cmsc123.mp03.framework.GameInterface;
 import cmsc123.mp03.framework.ListenerInterface;
 import cmsc123.mp03.ui.DialogPanel;
+import cmsc123.mp03.ui.MusicPlayer;
 
 public class Game implements GameInterface {
 
     private GameFrame frameContainer;
     private Board board;
+    private MusicPlayer musicPlayer;
     
     private BufferedImage gameImage;
     
     public Game(GameFrame frameContainer) {
         this.frameContainer = frameContainer;
         gameImage = new BufferedImage(2000, 2000, BufferedImage.TYPE_INT_RGB);
+        musicPlayer = new MusicPlayer();
         
         setMenuListeners();
         setGameListeners();
@@ -44,6 +47,8 @@ public class Game implements GameInterface {
                 // Show Game Panel
                 frameContainer.getFrame().setCurrentPanel(frameContainer.getGamePanel());
                 frameContainer.getFrame().setResizable(true);
+                musicPlayer.stop();
+                musicPlayer.play("ChillingMusic.wav");
                 initializeGame();
             }
         });
@@ -114,6 +119,8 @@ public class Game implements GameInterface {
             	frameContainer.getFrame().setSize(640,640);
             	frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
             	frameContainer.getFrame().setResizable(false);
+            	 musicPlayer.stop();
+            	musicPlayer.play("FANTASY.wav");
                 // TODO: Some sort of congratulations here for the player.
             }
         });
@@ -128,6 +135,9 @@ public class Game implements GameInterface {
             	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
             	frameContainer.getFrame().setCurrentPanel(dialogPanel);
             	
+            	musicPlayer.stop();
+				musicPlayer.play("triumphal_fanfare.wav");
+            	
             	dialogPanel.getOkButton().addActionListener(new ActionListener() {
 
 					@Override
@@ -135,6 +145,8 @@ public class Game implements GameInterface {
 						frameContainer.getFrame().setSize(640,640);
 						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
 						frameContainer.getFrame().setResizable(false);
+						musicPlayer.stop();
+						musicPlayer.play("FANTASY.wav");
                     }
             		
             	});
@@ -152,6 +164,9 @@ public class Game implements GameInterface {
             	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
             	frameContainer.getFrame().setCurrentPanel(dialogPanel);
             	
+            	musicPlayer.stop();
+				musicPlayer.play("Sad_Trombone.wav");
+            	
             	dialogPanel.getOkButton().addActionListener(new ActionListener() {
 
 					@Override
@@ -159,6 +174,8 @@ public class Game implements GameInterface {
 						frameContainer.getFrame().setSize(640,640);
 						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
 						frameContainer.getFrame().setResizable(false);
+						musicPlayer.stop();
+						musicPlayer.play("FANTASY.wav");
                     }
             		
             	});
@@ -176,6 +193,9 @@ public class Game implements GameInterface {
             	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
             	frameContainer.getFrame().setCurrentPanel(dialogPanel);
             	
+            	musicPlayer.stop();
+				musicPlayer.play("Buzzer.wav");
+            	
             	dialogPanel.getOkButton().addActionListener(new ActionListener() {
 
 					@Override
@@ -183,6 +203,8 @@ public class Game implements GameInterface {
 						frameContainer.getFrame().setSize(640,640);
 						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
 						frameContainer.getFrame().setResizable(false);
+						musicPlayer.stop();
+						musicPlayer.play("FANTASY.wav");
                     }
             		
             	});
@@ -235,6 +257,7 @@ public class Game implements GameInterface {
         frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
         frameContainer.getFrame().setResizable(false);
         frameContainer.show();
+    	musicPlayer.play("FANTASY.wav");
     }
 
 }
