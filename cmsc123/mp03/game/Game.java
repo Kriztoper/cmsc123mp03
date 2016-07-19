@@ -15,6 +15,7 @@ import cmsc123.mp03.framework.GameInterface;
 import cmsc123.mp03.framework.ListenerInterface;
 import cmsc123.mp03.ui.DialogPanel;
 import cmsc123.mp03.ui.MusicPlayer;
+import cmsc123.mp03.ui.SplashPanel;
 
 public class Game implements GameInterface {
 
@@ -252,6 +253,21 @@ public class Game implements GameInterface {
     
     @Override
     public void start() {
+        
+    	// show splash screen
+    	SplashPanel splashPanel = new SplashPanel();
+    	
+    	frameContainer.getFrame().setCurrentPanel(splashPanel);
+        frameContainer.getFrame().setResizable(false);
+        frameContainer.show();
+
+        musicPlayer.play("clock-ticking-4.wav");
+        try {
+	        Thread.sleep(5000);
+        } catch (InterruptedException e) {
+	        e.printStackTrace();
+        }
+    	musicPlayer.stop();
         
         // Show Menu
         frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
