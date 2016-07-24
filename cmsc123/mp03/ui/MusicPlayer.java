@@ -12,8 +12,7 @@ public class MusicPlayer {
 	
 	public void play(String title) {
 		try {
-			File file = new File("assets/music/"+title);
-			AudioInputStream input = AudioSystem.getAudioInputStream(file);
+			AudioInputStream input = AudioSystem.getAudioInputStream(this.getClass().getResource("/music/"+title));
 			clip = AudioSystem.getClip();
 			clip.open(input);
 			

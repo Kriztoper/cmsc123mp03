@@ -15,8 +15,8 @@ public class SplashPanel extends Panel {
 		setLayout(new BorderLayout());
 		setSize(640, 640);
 		try {
-	        setBackGround(new ImageIcon(ImageIO.read(new File("assets/images/loading.png"))));
-        	splashLabel = new JLabel(new ImageIcon((new File("assets/images/HourGlass.gif").getAbsolutePath())));
+	        setBackGround(new ImageIcon(this.getClass().getResource("/images/loading.png")));
+        	splashLabel = new JLabel(new ImageIcon(this.getClass().getResource("/images/hourglass.gif")));
         } catch (Exception e) {
 	        e.printStackTrace();
         }

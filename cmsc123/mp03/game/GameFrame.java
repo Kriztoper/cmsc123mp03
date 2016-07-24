@@ -27,12 +27,17 @@ public class GameFrame {
     private static int DEFAULT_HEIGHT = 640;
     
     private UtilityFrame frame;
-    private Panel menuPanel, howToPlayPanel;
+    private Panel menuPanel;
+    private Panel creditsPanel;
+    private Panel howToPlayPanel;
     
     private GamePanel gamePanel;
-    private ImageButton creditsButton, startGameButton, howToPlayButton;
+    private ImageButton creditsButton;
+    private ImageButton startGameButton;
+    private ImageButton howToPlayButton;
     private JButton backToMainButton;
-
+    private JButton backToMainHTPButton;
+    
     /**
      * Initializes this UI container.
      */
@@ -40,8 +45,34 @@ public class GameFrame {
         frame = new UtilityFrame();
         
         initMenuPanel();
+        initCreditsPanel();
         initHowToPlayPanel();
         initGamePanel();
+    }
+    
+    /**
+     * Initializes the credits panel.
+     * */
+    private void initCreditsPanel() {
+	    creditsPanel = new Panel();
+	    creditsPanel.setLayout(null);
+	    creditsPanel.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	    
+	    // set background image for credits panel
+	    try {
+	    	creditsPanel.setBackGround(new ImageIcon(this.getClass().getResource("/images/howtobg.png")));
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	    
+	    // set back to main button
+        backToMainButton = new JButton("BACK");
+        backToMainButton.setBackground(Color.BLACK);
+        backToMainButton.setForeground(Color.WHITE);
+        
+        backToMainButton.setBounds(270, 500, 100, 30);
+        creditsPanel.add(backToMainButton);
+	    
     }
     
     /**
@@ -54,17 +85,17 @@ public class GameFrame {
         
         // Set background image for menu panel
         try {
-            menuPanel.setBackGround(new ImageIcon(ImageIO.read(new File("assets/images/menu-bg.png"))));
-        } catch (IOException e) {
+        	menuPanel.setBackGround(new ImageIcon(this.getClass().getResource("/images/menu-bg.png")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         
         // set start game and credits button
 		try {
-			startGameButton = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/start-normal.png"))));
-			creditsButton   = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/credits-normal.png"))));
-			howToPlayButton = new ImageButton(new ImageIcon(ImageIO.read(new File("assets/images/how-to-play-normal.png"))));
-		} catch (IOException e) {
+			startGameButton = new ImageButton(new ImageIcon(this.getClass().getResource("/images/start-normal.png")));
+			creditsButton   = new ImageButton(new ImageIcon(this.getClass().getResource("/images/credits-normal.png")));
+			howToPlayButton = new ImageButton(new ImageIcon(this.getClass().getResource("/images/how-to-play-normal.png")));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
         
@@ -88,18 +119,18 @@ public class GameFrame {
         
     	// Set background image for how to play panel
         try {
-        	howToPlayPanel.setBackGround(new ImageIcon(ImageIO.read(new File("assets/images/howtobg.png"))));
-        } catch (IOException e) {
+        	howToPlayPanel.setBackGround(new ImageIcon(this.getClass().getResource("/images/howtobg.png")));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         
         // set back to main button
-        backToMainButton = new JButton("BACK");
-        backToMainButton.setBackground(Color.BLACK/*new Color(255, 128, 0)*/);
-        backToMainButton.setForeground(Color.WHITE);
+        backToMainHTPButton = new JButton("BACK");
+        backToMainHTPButton.setBackground(Color.BLACK);
+        backToMainHTPButton.setForeground(Color.WHITE);
         
-        backToMainButton.setBounds(270, 500, 100, 30);
-        howToPlayPanel.add(backToMainButton);      
+        backToMainHTPButton.setBounds(270, 500, 100, 30);
+        howToPlayPanel.add(backToMainHTPButton);      
     }
     
     /**
@@ -129,6 +160,10 @@ public class GameFrame {
         return menuPanel;
     }
     
+    public JPanel getCreditsPanel() {
+    	return creditsPanel;
+    }
+    
     public JPanel getHowToPlayPanel() {
     	return howToPlayPanel;
     }
@@ -137,12 +172,20 @@ public class GameFrame {
         return startGameButton;
     }
     
+    public JButton getCreditsButton() {
+   	 return creditsButton;
+   }
+    
     public JButton getHowToPlayButton() {
     	 return howToPlayButton;
     }
     
     public JButton getBackToMainButton() {
     	return backToMainButton;
+    }
+    
+    public JButton getBackToMainHTPButton() {
+    	return backToMainHTPButton;
     }
 
 	public UtilityFrame getFrame() {
