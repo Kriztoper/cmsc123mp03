@@ -54,6 +54,17 @@ public class Game implements GameInterface {
             }
         });
         
+        
+        // Set action for "Credits" button
+        frameContainer.getCreditsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        
+                // Show Credits Panel
+                frameContainer.getFrame().setCurrentPanel(frameContainer.getCreditsPanel());
+            }
+        });
+        
         // Set action for "How To Play" button
         frameContainer.getHowToPlayButton().addActionListener(new ActionListener() {
             @Override
@@ -64,8 +75,18 @@ public class Game implements GameInterface {
             }
         });
         
-        // Set action for "Back to Main" button
+        // Set action for "Back to Main" credits button
         frameContainer.getBackToMainButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+        
+                // Show How To Play Panel
+                frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+            }
+        });
+        
+     // Set action for "Back to Main" How to Play button
+        frameContainer.getBackToMainHTPButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
         
