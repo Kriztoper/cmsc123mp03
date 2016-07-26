@@ -8,8 +8,6 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
-
 import cmsc123.mp03.framework.BroadcasterInterface;
 import cmsc123.mp03.framework.DrawableInterface;
 import cmsc123.mp03.framework.Event;
@@ -83,20 +81,16 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     if (isGameOver() != 0) {
                     	broadcast("update");
                     	if (isGameOver() == 1) {
-                    		
-                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                    		broadcast("player1 wins");
                     	} else {
-                    		
-                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+                    		broadcast("player2 wins");
                     	}
-                        broadcast("end");
                         
                         // TODO: Cleanup Resources or create destroy method
                     } else if (isGameDrawn()) {
                 		
                     	broadcast("update");
-                		JOptionPane.showMessageDialog(null, "GAME DRAWN", "GAME DRAWN", JOptionPane.WARNING_MESSAGE);
-                		broadcast("end");
+                    	broadcast("game drawn");
                 	} else {
                         broadcast("update");
                         ((BroadcasterInterface)player1).broadcast("move");
@@ -116,20 +110,16 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     if (isGameOver() != 0) {
                     	broadcast("update");
                     	if (isGameOver() == 1) {
-                    		
-                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                    		broadcast("player1 wins");
                     	} else {
-                    		
-                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+                    		broadcast("player2 wins");
                     	}
-                        broadcast("end");
                         
                         // TODO: Cleanup Resources or create destroy method
                     } else if (isGameDrawn()) {
                 		
                     	broadcast("update");
-                		JOptionPane.showMessageDialog(null, "GAME DRAWN", "GAME DRAWN", JOptionPane.WARNING_MESSAGE);
-                		broadcast("end");
+                    	broadcast("game drawn");
                 	} else {
                         broadcast("update");
                         
@@ -155,20 +145,16 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 	                    if (isGameOver() != 0) {
 	                    	broadcast("update");
 	                    	if (isGameOver() == 1) {
-	                    		
-	                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+	                    		broadcast("player1 wins");
 	                    	} else {
-	                    		
-	                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
+	                    		broadcast("player2 wins");
 	                    	}
-	                        broadcast("end");
 	                        
 	                        // TODO: Cleanup Resources or create destroy method
 	                    } else if (isGameDrawn()) {
 	                		
 	                    	broadcast("update");
-	                		JOptionPane.showMessageDialog(null, "GAME DRAWN", "GAME DRAWN", JOptionPane.WARNING_MESSAGE);
-	                		broadcast("end");
+	                    	broadcast("game drawn");
 	                	} else {
 	                        broadcast("update");
 	                        
@@ -191,19 +177,16 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                     if (isGameOver() != 0) {
                     	broadcast("update");
                     	if (isGameOver() == 1) {
-                    		
-                    		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                    		broadcast("player1 wins");
                     	} else {
-                    		
-                    		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
-                    	} broadcast("end");
+                    		broadcast("player2 wins");
+                    	}
                         
                         // TODO: Cleanup Resources or create destroy method
                     } else if (isGameDrawn()) {
                 		
                     	broadcast("update");
-                		JOptionPane.showMessageDialog(null, "GAME DRAWN", "GAME DRAWN", JOptionPane.WARNING_MESSAGE);
-                		broadcast("end");
+                    	broadcast("game drawn");
                 	} else {
                         broadcast("update");
                         
@@ -233,23 +216,17 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
                 if (isGameOver() != 0) {
                 	broadcast("update");
                 	if (isGameOver() == 1) {
-                		
-                		JOptionPane.showMessageDialog(null, "P1 wins", "P1 wins", JOptionPane.INFORMATION_MESSAGE);
+                		broadcast("player1 wins");
                 		((Player) player1).setLegal(false);
                 	} else {
-                		
-                		JOptionPane.showMessageDialog(null, "P2 wins", "P2 wins", JOptionPane.INFORMATION_MESSAGE);
-                	} broadcast("end");
+                		broadcast("player2 wins");
+                	}
                     
                     // TODO: Cleanup Resources or create destroy method
                 } else if (isGameDrawn()) {
             		
                 	broadcast("update");
-            		JOptionPane.showMessageDialog(null, "GAME DRAWN", "GAME DRAWN", JOptionPane.WARNING_MESSAGE);
-            		broadcast("end");
-            	} else if (isGameDrawn()) {
-            		
-            		JOptionPane.showMessageDialog(null, "GAME DRAWN", "GAME DRAWN", JOptionPane.WARNING_MESSAGE);
+                	broadcast("game drawn");
             	}
             }
             

@@ -29,4 +29,8 @@ public class GamePanel extends JPanel {
     public void setGameImage(BufferedImage gameImage) {
         this.gameImage = gameImage;
     }
+    
+    public BufferedImage getGameImage() {
+    	return gameImage;
+    }
 }

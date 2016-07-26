@@ -4,8 +4,6 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
-
 import cmsc123.mp03.framework.BroadcasterInterface;
 import cmsc123.mp03.framework.Event;
 import cmsc123.mp03.framework.ListenerInterface;
@@ -77,9 +75,6 @@ public class Player implements PlayerInterface, BroadcasterInterface {
         int column = (int) (location.getX()/clickArea);
         
         if (inserts[column] < 0) {
-            // TODO: Insert warning or something
-        	JOptionPane.showMessageDialog(null, "INVALID MOVE! Choose other moves!",
-        			"INVALID MOVE! Choose other moves!", JOptionPane.WARNING_MESSAGE);
         	legal = false;
         } else {
         	legal = true;

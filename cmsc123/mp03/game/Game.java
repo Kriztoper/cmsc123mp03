@@ -9,19 +9,26 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 import cmsc123.mp03.framework.GameInterface;
 import cmsc123.mp03.framework.ListenerInterface;
+import cmsc123.mp03.ui.DialogPanel;
+import cmsc123.mp03.ui.MusicPlayer;
+import cmsc123.mp03.ui.SplashPanel;
 
 public class Game implements GameInterface {
 
     private GameFrame frameContainer;
     private Board board;
+    private MusicPlayer musicPlayer;
     
     private BufferedImage gameImage;
     
     public Game(GameFrame frameContainer) {
         this.frameContainer = frameContainer;
         gameImage = new BufferedImage(2000, 2000, BufferedImage.TYPE_INT_RGB);
+        musicPlayer = new MusicPlayer();
         
         setMenuListeners();
         setGameListeners();
@@ -40,6 +47,9 @@ public class Game implements GameInterface {
         
                 // Show Game Panel
                 frameContainer.getFrame().setCurrentPanel(frameContainer.getGamePanel());
+                frameContainer.getFrame().setResizable(true);
+                musicPlayer.stop();
+                musicPlayer.play("ChillingMusic.wav");
                 initializeGame();
             }
         });
@@ -109,7 +119,97 @@ public class Game implements GameInterface {
             public void obey(Object event) {
             	frameContainer.getFrame().setSize(640,640);
             	frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+            	frameContainer.getFrame().setResizable(false);
+            	 musicPlayer.stop();
+            	musicPlayer.play("FANTASY.wav");
                 // TODO: Some sort of congratulations here for the player.
+            }
+        });
+        
+        board.addListener("player1 wins", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+            	
+            	DialogPanel dialogPanel = new DialogPanel("PLAYER 1 WINS", frameContainer.getFrame().getCurrentPanel().getWidth(),
+            			frameContainer.getFrame().getCurrentPanel().getHeight());
+            	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
+            	frameContainer.getFrame().setCurrentPanel(dialogPanel);
+            	
+            	musicPlayer.stop();
+				musicPlayer.play("triumphal_fanfare.wav");
+            	
+            	dialogPanel.getOkButton().addActionListener(new ActionListener() {
+
+					@Override
+                    public void actionPerformed(ActionEvent e) {
+						frameContainer.getFrame().setSize(640,640);
+						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+						frameContainer.getFrame().setResizable(false);
+						musicPlayer.stop();
+						musicPlayer.play("FANTASY.wav");
+                    }
+            		
+            	});
+            	
+            }
+        });
+        
+        board.addListener("player2 wins", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+            	
+            	DialogPanel dialogPanel = new DialogPanel("PLAYER 2 WINS", frameContainer.getFrame().getCurrentPanel().getWidth(),
+            			frameContainer.getFrame().getCurrentPanel().getHeight());
+            	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
+            	frameContainer.getFrame().setCurrentPanel(dialogPanel);
+            	
+            	musicPlayer.stop();
+				musicPlayer.play("Sad_Trombone.wav");
+            	
+            	dialogPanel.getOkButton().addActionListener(new ActionListener() {
+
+					@Override
+                    public void actionPerformed(ActionEvent e) {
+						frameContainer.getFrame().setSize(640,640);
+						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+						frameContainer.getFrame().setResizable(false);
+						musicPlayer.stop();
+						musicPlayer.play("FANTASY.wav");
+                    }
+            		
+            	});
+            	
+            }
+        });
+        
+        board.addListener("game drawn", new ListenerInterface() {
+            
+            @Override
+            public void obey(Object event) {
+            	
+            	DialogPanel dialogPanel = new DialogPanel("GAME DRAWN", frameContainer.getFrame().getCurrentPanel().getWidth(),
+            			frameContainer.getFrame().getCurrentPanel().getHeight());
+            	dialogPanel.setBackGround(new ImageIcon(frameContainer.getGamePanel().getGameImage()));
+            	frameContainer.getFrame().setCurrentPanel(dialogPanel);
+            	
+            	musicPlayer.stop();
+				musicPlayer.play("Buzzer.wav");
+            	
+            	dialogPanel.getOkButton().addActionListener(new ActionListener() {
+
+					@Override
+                    public void actionPerformed(ActionEvent e) {
+						frameContainer.getFrame().setSize(640,640);
+						frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+						frameContainer.getFrame().setResizable(false);
+						musicPlayer.stop();
+						musicPlayer.play("FANTASY.wav");
+                    }
+            		
+            	});
+            	
             }
         });
         
@@ -154,9 +254,26 @@ public class Game implements GameInterface {
     @Override
     public void start() {
         
+    	// show splash screen
+    	SplashPanel splashPanel = new SplashPanel();
+    	
+    	frameContainer.getFrame().setCurrentPanel(splashPanel);
+        frameContainer.getFrame().setResizable(false);
+        frameContainer.show();
+
+        musicPlayer.play("clock-ticking-4.wav");
+        try {
+	        Thread.sleep(5000);
+        } catch (InterruptedException e) {
+	        e.printStackTrace();
+        }
+    	musicPlayer.stop();
+        
         // Show Menu
         frameContainer.getFrame().setCurrentPanel(frameContainer.getMenuPanel());
+        frameContainer.getFrame().setResizable(false);
         frameContainer.show();
+    	musicPlayer.play("FANTASY.wav");
     }
 
 }
