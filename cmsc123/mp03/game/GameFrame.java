@@ -60,7 +60,7 @@ public class GameFrame {
 	    
 	    // set background image for credits panel
 	    try {
-	    	creditsPanel.setBackGround(new ImageIcon(this.getClass().getResource("/images/howtobg.png")));
+	    	creditsPanel.setBackGround(new ImageIcon(this.getClass().getResource("/images/credits.png")));
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    }
@@ -93,12 +93,14 @@ public class GameFrame {
         // set start game and credits button
 		try {
 			startGameButton = new ImageButton(new ImageIcon(this.getClass().getResource("/images/start-normal.png")));
+			startGameButton.setRolloverIcon(new ImageIcon(this.getClass().getResource("/images/start-hover.png")));
 			creditsButton   = new ImageButton(new ImageIcon(this.getClass().getResource("/images/credits-normal.png")));
+			creditsButton.setRolloverIcon(new ImageIcon(this.getClass().getResource("/images/credits-hover.png")));
 			howToPlayButton = new ImageButton(new ImageIcon(this.getClass().getResource("/images/how-to-play-normal.png")));
+			howToPlayButton.setRolloverIcon(new ImageIcon(this.getClass().getResource("/images/how-to-play-hover.png")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
         startGameButton.setBounds(250, 400, 150, 30);
         creditsButton.setBounds(250, 450, 150, 30);
         howToPlayButton.setBounds(250, 500, 150, 30);
