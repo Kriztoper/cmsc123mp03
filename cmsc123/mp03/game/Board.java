@@ -407,7 +407,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 		
 		// Draw Background
 		
-		graphics.setPaint((Paint) new GradientPaint(10,0,Color.blue,1000, 10,Color.WHITE,true));
+		graphics.setPaint((Paint) new GradientPaint(10,0,Color.white,1000, 10,Color.black,true));
 		//graphics.setColor(Color.blue);
 		graphics.fillRect(0, 0, width, height);
 		
@@ -415,7 +415,7 @@ public class Board implements ReactorInterface, BroadcasterInterface, DrawableIn
 		for (int i = 0; i < boardArray.length; i++) {
 			for (int j = 0; j < boardArray[0].length; j++) {
 				if (boardArray[i][j] == 0) {
-					graphics.setColor(Color.BLACK);
+					graphics.setColor(Color.black);
 					graphics.drawOval(i * radius, j * radius, radius, radius);
 				} else if (boardArray[i][j] == PlayerInterface.PLAYER_1) {
 					graphics.setColor(Color.decode("#f9cf00"));
