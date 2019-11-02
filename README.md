@@ -6,5 +6,7 @@ Developed by: JP Ada, Richard Baleña, Kobe Alcober, and me.
 
 How to run Jar file:
 Requirements: JRE (Java Runtime Environment)
-> Just double-click the jar file to run
-> Or type ```java -jar CMSC123_MP03.jar``` on the cmd(for Windows) or terminal(for Linux or MacOS)
+
+Just double-click the jar file to run
+
+Or type ```java -jar CMSC123_MP03.jar``` on the cmd(for Windows) or terminal(for Linux or MacOS)
